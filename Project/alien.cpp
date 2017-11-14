@@ -1,6 +1,6 @@
 #include "alien.h"
 
-Alien::Alien(int n)
+Alien::Alien(string n)
 {
     nie = n;
 }

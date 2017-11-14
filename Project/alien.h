@@ -7,11 +7,11 @@ using namespace std;
 
 class Alien : public Owners
 {
-    int nie;
+    string nie;
 
 public:
 
-    Alien(int n);
+    Alien(string n);
     void buyD(string &ship);
 };
 

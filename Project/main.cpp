@@ -1,11 +1,19 @@
 #include <iostream>
+#include <platform.h>
+
 
 using namespace std;
 
 int main()
 {
-    cout << "Hello Git World!" << endl;
-    cout << "let's see if this aplies" << endl;
+    Date test;
+    test.day = 12;
+    test.month = 11;
+    test.year = 2017;
+
+    Platform platform = Platform(test);
+    platform.performer();
+
 
     return 0;
 }

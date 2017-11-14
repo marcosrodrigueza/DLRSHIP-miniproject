@@ -5,7 +5,7 @@ void Owners::show()
     //
 }
 
-void Owners:buySC(string &ship)
+void Owners::buySC(string &ship)
 {
     //
 }

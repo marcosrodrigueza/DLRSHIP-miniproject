@@ -3,11 +3,11 @@
 
 class Weapon
 {
-    WeTy type;
+   // WeTy type;
 
 public:
 
-    Weapon(WeTy t); //Constructor
+    //Weapon(WeTy t); //Constructor
 
 };
 

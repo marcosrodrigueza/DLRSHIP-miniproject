@@ -1,13 +1,10 @@
 #include "spacecarrier.h"
+#include "spacecraft.h"
 
-SpaceCarrier::SpaceCarrier(int ml, int cs, bool es,int cw, float p, PropTy pro, string rn, string o)
+SpaceCarrier::SpaceCarrier(int ml, int cs, bool es,int cn, float p,/* PropTy pro,*/ string rn, string o)
+    : SpaceCraft(cn, p, /*pro,*/ rn, o)
 {
     maxLoad = ml;
     cSpeed = cs;
     eShield = es;
-    crewMax = cw;
-    price = p;
-    prop = pro;
-    regNum = rn;
-    owner = o;
 }

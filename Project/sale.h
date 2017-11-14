@@ -1,5 +1,9 @@
 #ifndef SALE_H
 #define SALE_H
+#include <string>
+#include "date.h"
+
+using namespace std;
 
 class Sale
 {

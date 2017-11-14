@@ -1,5 +1,7 @@
 #ifndef OWNERS_H
 #define OWNERS_H
+#include<string>
+using namespace std;
 
 class Owners
 {

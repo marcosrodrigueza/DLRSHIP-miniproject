@@ -1,5 +1,6 @@
 #ifndef ALIEN_H
 #define ALIEN_H
+#include<iostream>
 #include<string>
 #include "owners.h"
 
@@ -13,6 +14,8 @@ public:
 
     Alien(string n);
     void buyD(string &ship);
+    void editId(const string id);
+    string getId();
 };
 
 #endif // ALIEN_H

@@ -1,5 +1,6 @@
 #ifndef HUMAN_H
 #define HUMAN_H
+#include<iostream>
 #include<string>
 #include "owners.h"
 
@@ -13,6 +14,8 @@ public:
 
     Human(string n);
     void buySS(string &ship);
+    void editId(const string id);
+    string getId();
 };
 
 #endif // HUMAN_H

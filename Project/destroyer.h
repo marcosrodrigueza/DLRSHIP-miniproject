@@ -15,6 +15,7 @@ class Destroyer : public SpaceCraft
 public:
 
     Destroyer(int cm, float p/*, PropTy pro*/, string rn, string o);
+    void editSpacecraft();
 };
 
 #endif // DESTROYER_H

@@ -11,7 +11,8 @@ class Fighter : public SpaceCraft
 
 public:
 
-    Fighter(int ms,int cm, float p,/* PropTy pro,*/ string rn, string o); //Constructor
+    Fighter(int ms,int cm, float p,/* PropTy pro,*/ string rn, string o); //
+    void editSpacecraft();
 };
 
 #endif // FIGHTER_H

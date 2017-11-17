@@ -38,6 +38,12 @@ bool Platform::checkNie(const string &n)const //if we have time we should implem
     }
 
     if (error == 0) selector = true;
+    if (selector == false) cout << "Not able to use this nie" << endl;
+    if (n.size() != 10)
+    {
+        selector = false;
+        cout << "Not adequate size" << endl;
+    }
 
     return selector;
 }
@@ -55,6 +61,12 @@ bool Platform::checkNif(const string &n)const
     if(n[n.size()-1] < 65 || n[n.size()-1] > 90) error++;
 
     if (error == 0) selector = true;
+    if (selector == false) cout << "Not able to use this nif number" << endl;
+    if (n.size() != 9)
+    {
+        selector = false;
+        cout << "Not adequate size" << endl;
+    }
 
     return selector;
 
@@ -154,7 +166,7 @@ void Platform::ownerCreator()
     {
         string nie = "non-sense"; //for use the value by default
 
-        cout << "Please introduce the nie in the format 'NNNNNNNNN'" << endl << "being 'N' a natural number: ";
+        cout << "Please introduce the nie in the format 'NNNNNNNNNN'" << endl << "being 'N' a natural number: ";
         do
         {
             cin >> nie;
@@ -224,6 +236,7 @@ void Platform::spaceCraftCreator()
     bool human = false;
     unsigned int crew = 0;
     float price = 0.0;
+    SpaceCraft *p;
     //
     do
     {
@@ -270,18 +283,24 @@ void Platform::spaceCraftCreator()
             cout << "how many weapons does it have?: ";
             cin >> num_weapons;
             //Since we do not know lists, the types will be developed in the future.
-            vect_space.push_back(Destroyer(crew,price,registration,owner));
+            p = new Destroyer(crew,price,registration,owner);
+            vect_space.push_back(*p);
+            cout << "---Destroyer Created---" << endl;
+            p = NULL;
         }
         else if(type == 2)
         {
             unsigned int num_weapons = 0;
             unsigned int speedTop = 0;
             //
-            cout << "What is its maximum speed?: ";
+            cout << "What is its maximum speed? (in light-years): ";
             cin >> speedTop;
             cout << "how many weapons does it have?: ";
             cin >> num_weapons;
-            vect_space.push_back(Fighter(speedTop,crew,price,registration,owner));
+            p = new Fighter(speedTop,crew,price,registration,owner);
+            vect_space.push_back(*p);
+            cout << "---Fighter Created---" << endl;
+            p = NULL;
         }
         else if(type == 3)
         {
@@ -293,11 +312,16 @@ void Platform::spaceCraftCreator()
             cin >> maxLoad;
             cout << "Does it have Energy Shield(yes = 1/ no = 0): ";
             cin >> eShield;
-            cout << "What is its cruise speed?: ";
+            cout << "What is its cruise speed?(in light-years): ";
             cin >> speedCruise;
-            vect_space.push_back(SpaceCarrier(maxLoad,eShield,speedCruise,crew,price,registration,owner));
+
+            p = new SpaceCarrier(maxLoad,eShield,speedCruise,crew,price,registration,owner);
+            vect_space.push_back(*p);
+            cout << "---Carrier Created---" << endl;
+            p = NULL;
+
         }
-        else if(type == 5)
+        else if(type == 4)
         {
             unsigned int hangars = 0;
             unsigned int eShield = false;
@@ -309,7 +333,10 @@ void Platform::spaceCraftCreator()
             cin >> eShield;
             cout << "Maximum of passangers: ";
             cin >> passengers;
-            vect_space.push_back(SpaceStation(hangars,passengers,eShield,crew,price,registration,owner));
+            p = new SpaceStation(hangars,passengers,eShield,crew,price,registration,owner);
+            vect_space.push_back(*p);
+            cout << "---Carrier Created---" << endl;
+            p = NULL;
         }
         else
         {
@@ -319,7 +346,20 @@ void Platform::spaceCraftCreator()
     } while(valid != true);
 }
 
-void Platform::deleteOwn() //almost the same code than in edit, except from the final in the If's statements.
+void Platform::spaceCraftSearch(const string &registration, vector<SpaceCraft>::iterator &iterator, bool &found)
+{
+    for(iterator = vect_space.begin(); iterator != vect_space.end(); iterator ++)
+    {
+        if(iterator->getReg() == registration)
+        {
+            found = true;
+            break;
+            cout << "FOUND" <<endl;
+        }
+    }
+}
+
+void Platform::deleteOwn() //almost the same code than in edit except from the final in the If's statements.
 {
     string id = "non-sense";
     bool alien = false;
@@ -375,6 +415,24 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
         case '4' :
             this->spaceCraftCreator();
             break;
+
+        case '5' :
+        {
+            string reg = "non-sense";
+            bool fnd = false;
+            vector<SpaceCraft>::iterator its;
+            //
+            cout << "Introduce the registration number: ";
+            cin >> reg;
+            this->spaceCraftSearch(reg, its, fnd);
+            if(fnd == true)
+            {
+                its->editSpacecraft();
+            }
+            else {cout <<"Sorry, there aren't SpaceCrafts with this registration" << endl;}
+
+            break;
+        }
 
         default:
 

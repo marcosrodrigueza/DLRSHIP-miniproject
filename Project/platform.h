@@ -1,11 +1,15 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 #include <vector>
-#include <algorithm>
 #include "date.h"
 #include "owners.h"
 #include "alien.h"
 #include "human.h"
+#include "spacecraft.h"
+#include "destroyer.h"
+#include "fighter.h"
+#include "spacecarrier.h"
+#include "spacestation.h"
 
 using namespace std;
 
@@ -13,6 +17,7 @@ class Platform
 {
     vector<Alien> vect_alien;
     vector<Human> vect_human;
+    vector<SpaceCraft> vect_space;
 
 public:
 
@@ -23,6 +28,7 @@ public:
     void displayMenu();
     bool checkNie(const string &n)const;
     bool checkNif(const string &n)const;
+    bool checkRegNum(const string &n)const;
     void searchAlien(const string &id, vector<Alien>::iterator &iterator);
     void searchHuman(const string &id, vector<Human>::iterator &iterator);
     void editAlien(vector<Alien>::iterator &iterator);
@@ -30,6 +36,8 @@ public:
     void ownerCreator(); //Englobes contructor for alien and human and manage all the checkings
                          //Maybe its not needed when exceptions are explained
     void editorOwn();
+    void deleteOwn();
+    void spaceCraftCreator();
     void performer();
 };
 

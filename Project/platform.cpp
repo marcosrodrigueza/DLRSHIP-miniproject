@@ -23,7 +23,8 @@ void Platform::displayMenu()
     cout << "   3. Delete Owner." << endl;
     cout << "   4. Introduce new SpaceCraft." << endl;
     cout << "   5. Edit SpaceCraft." << endl;
-    cout << "   6. Delete SpaceCraft." << endl << endl;
+    cout << "   6. Delete SpaceCraft." << endl;
+    cout << "   7. Register a Sale." << endl << endl;
     cout << "   Option : " ;
 }
 
@@ -37,13 +38,16 @@ bool Platform::checkNie(const string &n)const //if we have time we should implem
         if(n[i] < 48 || n[i] > 57) error ++;
     }
 
-    if (error == 0) selector = true;
-    if (selector == false) cout << "Not able to use this nie" << endl;
+    if (error == 0)
+        selector = true;
+
     if (n.size() != 10)
     {
         selector = false;
         cout << "Not adequate size" << endl;
     }
+    if (selector == false)
+        cout << "Not able to use this nie" << endl;
 
     return selector;
 }
@@ -60,13 +64,15 @@ bool Platform::checkNif(const string &n)const
 
     if(n[n.size()-1] < 65 || n[n.size()-1] > 90) error++;
 
-    if (error == 0) selector = true;
-    if (selector == false) cout << "Not able to use this nif number" << endl;
+    if (error == 0)
+        selector = true;
     if (n.size() != 9)
     {
         selector = false;
         cout << "Not adequate size" << endl;
     }
+    if (selector == false)
+        cout << "Not able to use this nif number" << endl;
 
     return selector;
 
@@ -283,10 +289,10 @@ void Platform::spaceCraftCreator()
             cout << "how many weapons does it have?: ";
             cin >> num_weapons;
             //Since we do not know lists, the types will be developed in the future.
-            p = new Destroyer(crew,price,registration,owner);
+            p = new  Destroyer(crew,price,registration,owner);
             vect_space.push_back(*p);
             cout << "---Destroyer Created---" << endl;
-            p = NULL;
+            delete p;
         }
         else if(type == 2)
         {
@@ -300,7 +306,7 @@ void Platform::spaceCraftCreator()
             p = new Fighter(speedTop,crew,price,registration,owner);
             vect_space.push_back(*p);
             cout << "---Fighter Created---" << endl;
-            p = NULL;
+            delete p;
         }
         else if(type == 3)
         {
@@ -318,7 +324,7 @@ void Platform::spaceCraftCreator()
             p = new SpaceCarrier(maxLoad,eShield,speedCruise,crew,price,registration,owner);
             vect_space.push_back(*p);
             cout << "---Carrier Created---" << endl;
-            p = NULL;
+            delete p;
 
         }
         else if(type == 4)
@@ -336,7 +342,7 @@ void Platform::spaceCraftCreator()
             p = new SpaceStation(hangars,passengers,eShield,crew,price,registration,owner);
             vect_space.push_back(*p);
             cout << "---Carrier Created---" << endl;
-            p = NULL;
+           delete p;
         }
         else
         {
@@ -430,6 +436,49 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
                 its->editSpacecraft();
             }
             else {cout <<"Sorry, there aren't SpaceCrafts with this registration" << endl;}
+
+            break;
+        }
+
+        case '6' :
+        {
+            string delete_string = "non-sense";
+            bool found = false;
+            vector<SpaceCraft>::iterator itd;
+            //
+            cout << "Introduce the registration number: ";
+            cin >> delete_string;
+            this->spaceCraftSearch(delete_string, itd, found);
+            if(found == true)
+            {
+                vect_space.erase(itd);
+            }
+            else {cout <<"Sorry, there aren't SpaceCrafts with this registration" << endl;}
+            break;
+        }
+        case '7' : // not error-friendly yet
+        {
+            bool found_for_sale = false;
+            bool create_sale = false;
+            string new_owner = "non-sense";
+            string regTarget = "non-sense";
+            vector<SpaceCraft>::iterator saler;
+            cout << "Introduce the registration number: ";
+            cin >> regTarget;
+            this->spaceCraftSearch(regTarget, saler, found_for_sale);
+            if(found_for_sale == true)
+            {
+                saler->transaction(create_sale);
+            }
+            else
+            {
+                cout << "Sorry, there aren't SpaceCrafts with this registration" << endl;
+            }
+
+            if(create_sale == true)
+            {
+                vect_sale.push_back(Sale(actualDate, saler->getOwner()));
+            }
 
             break;
         }

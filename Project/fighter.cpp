@@ -19,3 +19,13 @@ void Fighter::editSpacecraft()
 
     cout << "----Changes done----" << endl;
 }
+Fighter::~Fighter()
+{
+    //
+}
+
+/*string Fighter::getReg()
+{
+    return regNum;
+}
+*/

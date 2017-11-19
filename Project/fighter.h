@@ -12,7 +12,9 @@ class Fighter : public SpaceCraft
 public:
 
     Fighter(int ms,int cm, float p,/* PropTy pro,*/ string rn, string o); //
+    //string getReg();
     void editSpacecraft();
+    ~Fighter();
 };
 
 #endif // FIGHTER_H

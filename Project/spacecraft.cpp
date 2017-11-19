@@ -14,14 +14,55 @@ void SpaceCraft::show()
     //
 }
 
-bool SpaceCraft::checkSale()
+void SpaceCraft::transaction(bool &create_sale)
 {
+    string new_owner = "non-sense";
+    string security_copy = this->getOwner(); // we store a copy of actual owner until  transaction checked
+    bool accepted = false;
     //
+    create_sale = false;
+    cout << "Please, introduce the buyer's id: ";
+    cin >> new_owner; //we don't check yet!
+    this-> setOwner(new_owner);
+    accepted = this->checkSale(new_owner);
+    if(accepted == false)
+    {
+       this->setOwner(security_copy);
+       cout << "Transaction error" << endl;
+    }
+    else
+    {
+        create_sale = true;
+        cout << "---Done succesfully---" << endl;
+    }
 }
-string SpaceCraft::getReg()
+
+bool SpaceCraft::checkSale(string check) //checks that the owner in the object equals the one introduced.
+{
+    bool checker = false;
+    if(this->getOwner() == check)
+    {
+        checker = true;
+    }
+    return checker;
+}
+
+
+
+string SpaceCraft::getReg()const
 {
     return regNum;
 }
+
+string SpaceCraft::getOwner()const
+{
+    return owner;
+}
+
+ void SpaceCraft::setOwner(string & newOwner)
+ {
+     owner = newOwner;
+ }
 
 void SpaceCraft::editBaseParameters()
 {
@@ -40,4 +81,12 @@ void SpaceCraft::editBaseParameters()
     if(new_crew != 0)
         crewMax = new_crew;
 
+}
+void SpaceCraft::editSpacecraft()
+{
+    //void editSpacecraft()
+}
+SpaceCraft::~SpaceCraft()
+{
+    //
 }

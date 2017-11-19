@@ -29,3 +29,14 @@ void SpaceCarrier::editSpacecraft()
 
     cout << "----Changes done----" << endl;
 }
+
+SpaceCarrier::~SpaceCarrier()
+{
+
+}
+
+/*string SpaceCarrier::getReg()
+{
+    return regNum;
+}
+*/

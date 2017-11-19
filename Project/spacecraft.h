@@ -20,10 +20,13 @@ public:
 
     SpaceCraft(int cm, float pri/*, PropTy prop*/, string rn, string o);
     void show();
-    bool checkSale();
-    string getReg();
+    void transaction(bool &create_sale);
+    bool checkSale(string check);
+    string getReg()const;
+    string getOwner()const;
+    void setOwner(string & newOwner);
     virtual void editSpacecraft();
-
+    virtual ~SpaceCraft();
 };
 
 #endif // SPACECRAFT_H

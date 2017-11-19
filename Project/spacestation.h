@@ -13,7 +13,9 @@ class SpaceStation : public SpaceCraft
 public:
 
     SpaceStation(int nh,int mp, bool es, int cw, float p,/* PropTy pro,*/ string rn, string o);//Constructor
+    //string getReg();
     void editSpacecraft();
+    ~SpaceStation();
 };
 
 #endif // SPACESTATION_H

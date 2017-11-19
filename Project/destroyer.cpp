@@ -8,4 +8,14 @@ void Destroyer::editSpacecraft()
     this->editBaseParameters();
     cout << "----Changes done----" << endl;
 }
+Destroyer::~Destroyer()
+{
+    //
+}
+
 //Need to implement types through lists
+/*string Destroyer::getReg()
+{
+    return regNum;
+}
+*/

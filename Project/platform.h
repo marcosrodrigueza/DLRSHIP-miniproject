@@ -10,6 +10,7 @@
 #include "fighter.h"
 #include "spacecarrier.h"
 #include "spacestation.h"
+#include "sale.h"
 
 using namespace std;
 
@@ -18,6 +19,8 @@ class Platform
     vector<Alien> vect_alien;
     vector<Human> vect_human;
     vector<SpaceCraft> vect_space;
+    vector<Sale> vect_sale;
+
 
 public:
 

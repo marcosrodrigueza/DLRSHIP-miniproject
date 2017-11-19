@@ -29,5 +29,13 @@ void SpaceStation::editSpacecraft()
 
     cout << "----Changes done----" << endl;
 }
+SpaceStation::~SpaceStation()
+{
+    //
+}
 
-
+/*string SpaceStation::getReg()
+{
+    return regNum;
+}
+*/

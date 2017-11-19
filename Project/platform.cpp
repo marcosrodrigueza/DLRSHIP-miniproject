@@ -24,7 +24,8 @@ void Platform::displayMenu()
     cout << "   4. Introduce new SpaceCraft." << endl;
     cout << "   5. Edit SpaceCraft." << endl;
     cout << "   6. Delete SpaceCraft." << endl;
-    cout << "   7. Register a Sale." << endl << endl;
+    cout << "   7. Register a Sale." << endl;
+    cout << "   8. Exit. " <<endl << endl;
     cout << "   Option : " ;
 }
 
@@ -44,10 +45,10 @@ bool Platform::checkNie(const string &n)const //if we have time we should implem
     if (n.size() != 10)
     {
         selector = false;
-        cout << "Not adequate size" << endl;
+        // Last time added because we realize that the format can be introduced right without correct size
     }
     if (selector == false)
-        cout << "Not able to use this nie" << endl;
+        cout << "--Not Alien type--" << endl;
 
     return selector;
 }
@@ -69,10 +70,10 @@ bool Platform::checkNif(const string &n)const
     if (n.size() != 9)
     {
         selector = false;
-        cout << "Not adequate size" << endl;
+        // Last time added because we realize that the format can be introduced right without correct size
     }
     if (selector == false)
-        cout << "Not able to use this nif number" << endl;
+        cout << "--Not Human type--" << endl;
 
     return selector;
 
@@ -262,12 +263,12 @@ void Platform::spaceCraftCreator()
 
         if(alien == true && human == false) //alien detected
         {
-          cout << "Alien detected" << endl;
+          cout << "----Alien detected----" << endl;
           valid = true;
         }
         else if(alien == false && human == true) //human detected
         {
-          cout << "Human detected" << endl;
+          cout << "----Human detected----" << endl;
           valid = true;
         }
         else { cout << "Not valid format" << endl;}
@@ -360,12 +361,12 @@ void Platform::spaceCraftSearch(const string &registration, vector<SpaceCraft>::
         {
             found = true;
             break;
-            cout << "FOUND" <<endl;
+            cout << "--FOUND--" <<endl;
         }
     }
 }
 
-void Platform::deleteOwn() //almost the same code than in edit except from the final in the If's statements.
+void Platform::deleteOwn() //little ugly without Polymorphism, will be prettier once that's implemented.
 {
     string id = "non-sense";
     bool alien = false;
@@ -381,12 +382,32 @@ void Platform::deleteOwn() //almost the same code than in edit except from the f
         vector<Alien>::iterator it;
         this-> searchAlien(id,it);
         vect_alien.erase(it);
+        //now search and erase its SpaceCrafts(later we will be able to pass them to other owner).
+        vector<SpaceCraft>::iterator deleter;
+        for(deleter = vect_space.begin(); deleter != vect_space.end(); deleter++)
+        {
+            if(deleter->getOwner() == id)
+            {
+                vect_space.erase(deleter);
+                deleter--;
+            }
+        }
     }
     else if(alien == false && human == true) //human detected
     {
         vector<Human>::iterator ite;
         this->searchHuman(id,ite); //=Alien-> will be the same with polymorphism
         vect_human.erase(ite);
+        //now search and erase its SpaceCrafts(later we will be able to pass them to other owner).
+        vector<SpaceCraft>::iterator deleter;
+        for(deleter = vect_space.begin(); deleter != vect_space.end(); deleter++)
+        {
+            if(deleter->getOwner() == id)
+            {
+                vect_space.erase(deleter);
+                deleter--;
+            }
+        }
     }
 
     else { cout << "Not valid format" << endl; }
@@ -460,9 +481,9 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
         {
             bool found_for_sale = false;
             bool create_sale = false;
-            string new_owner = "non-sense";
             string regTarget = "non-sense";
             vector<SpaceCraft>::iterator saler;
+            //
             cout << "Introduce the registration number: ";
             cin >> regTarget;
             this->spaceCraftSearch(regTarget, saler, found_for_sale);
@@ -479,9 +500,10 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
             {
                 vect_sale.push_back(Sale(actualDate, saler->getOwner()));
             }
-
             break;
         }
+        case '8':
+            break;
 
         default:
 

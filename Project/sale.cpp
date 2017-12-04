@@ -8,5 +8,5 @@ Sale::Sale(Date d, string i)
 
 void Sale::showSale()
 {
-    //
+    cout << " Buyer: " << id << endl << endl;
 }

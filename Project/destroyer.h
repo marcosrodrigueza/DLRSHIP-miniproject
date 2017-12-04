@@ -1,5 +1,6 @@
 #ifndef DESTROYER_H
 #define DESTROYER_H
+#include<iostream>
 #include<string>
 #include<vector>
 #include "spacecraft.h"
@@ -15,6 +16,7 @@ class Destroyer : public SpaceCraft
 public:
 
     Destroyer(int cm, float p/*, PropTy pro*/, string rn, string o);
+    void show();
    // string getReg();
     void editSpacecraft();
     ~Destroyer();

@@ -1,5 +1,6 @@
 #ifndef FIGHTER_H
 #define FIGHTER_H
+#include<iostream>
 #include <string>
 #include "spacecraft.h"
 
@@ -11,7 +12,8 @@ class Fighter : public SpaceCraft
 
 public:
 
-    Fighter(int ms,int cm, float p,/* PropTy pro,*/ string rn, string o); //
+    Fighter(int ms,int cm, float p,/* PropTy pro,*/ string rn, string o); //Constructor
+    void show();
     //string getReg();
     void editSpacecraft();
     ~Fighter();

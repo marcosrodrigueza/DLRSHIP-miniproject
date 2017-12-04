@@ -19,7 +19,7 @@ protected:
 public:
 
     SpaceCraft(int cm, float pri/*, PropTy prop*/, string rn, string o);
-    void show();
+    virtual void show();
     void transaction(bool &create_sale);
     bool checkSale(string check);
     string getReg()const;

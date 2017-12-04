@@ -16,6 +16,7 @@ public:
     void buySS(string &ship);
     void editId(const string id);
     string getId();
+    void show();
 };
 
 #endif // HUMAN_H

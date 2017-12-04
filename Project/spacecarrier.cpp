@@ -9,6 +9,16 @@ SpaceCarrier::SpaceCarrier(int ml, int cs, bool es,int cn, float p,/* PropTy pro
     eShield = es;
 }
 
+void SpaceCarrier::show()
+{
+    cout << " Owner: " << owner << endl;
+    cout << " RegNum: " << regNum << endl;
+    cout << " Price: " << price << endl;
+    cout << " Max Crew: " << crewMax << endl;
+    cout << " Max Load: " << maxLoad << endl;
+    cout << " Cruise Speed: " << cSpeed << endl;
+    cout << " Energy Shield: " << eShield << endl << endl;
+}
 void SpaceCarrier::editSpacecraft()
 {
     unsigned int new_maxLoad = 0;

@@ -1,5 +1,6 @@
 #ifndef SPACECARRIER_H
 #define SPACECARRIER_H
+#include<iostream>
 #include <string>
 #include "spacecraft.h"
 
@@ -13,6 +14,7 @@ class SpaceCarrier : public SpaceCraft
 public:
 
     SpaceCarrier(int ml, int cs, bool es, int cn, float p,/* PropTy pro,*/ string rn, string o);//Constructor
+    void show();
    // string getReg();
     void editSpacecraft();
     ~SpaceCarrier();

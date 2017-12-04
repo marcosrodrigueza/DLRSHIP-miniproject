@@ -17,3 +17,8 @@ void Human::editId(const string id)
 }
 
 string Human::getId() {return nif;}
+
+void Human::show()
+{
+    cout << "nif:" << nif << endl;
+}

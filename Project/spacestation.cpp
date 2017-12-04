@@ -9,6 +9,17 @@ SpaceStation::SpaceStation(int nh,int mp, bool es, int cn, float p,/* PropTy pro
     eShield = es;
 }
 
+void SpaceStation::show()
+{
+    cout << " Owner: " << owner << endl;
+    cout << " RegNum: " << regNum << endl;
+    cout << " Price: " << price << endl;
+    cout << " Max Crew: " << crewMax << endl;
+    cout << " Number of Hangars: " << numHangar << endl;
+    cout << " Maximum Passengers: " << maxPassenger << endl;
+    cout << " Energy Shield: " << eShield << endl << endl;
+}
+
 void SpaceStation::editSpacecraft()
 {
     unsigned int new_hangars = 0;

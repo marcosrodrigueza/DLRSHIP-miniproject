@@ -15,8 +15,6 @@
 // Date must be introduced manually down here in the main. In future releases it will be done automatically
 //***AUTHORS.
 // Marcos Rodríguez Aranda
-// Miguel Fernandez Millán
-
 
 #include <iostream>
 #include <platform.h>
@@ -37,5 +35,17 @@ int main()
 
     return 0;
 }
+
+/*To do list:
+ * vector of pointers in the sapcecraft creation
+ * enumeration for planet of origin and type of weapon (see how this matchecurrent implementation.//watch how to in reference
+ * implement polymorphism for owners class.
+ * impelement the last functionalities.
+ * - show owners
+ * - show spacecrafts
+ * -show sale and search by date
+ * parser for files. ie method to load the file and method to save all the modifications.
+ * take a look into restrictions for the type of owner to perform the sale.
+*/
 
 

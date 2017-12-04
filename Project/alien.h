@@ -16,6 +16,7 @@ public:
     void buyD(string &ship);
     void editId(const string id);
     string getId();
+    void show();
 };
 
 #endif // ALIEN_H

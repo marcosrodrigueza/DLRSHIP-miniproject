@@ -18,3 +18,8 @@ void Alien::editId(const string id)
 }
 
 string Alien::getId() {return nie;}
+
+void Alien::show()
+{
+    cout << "nie:" << nie << endl;
+}

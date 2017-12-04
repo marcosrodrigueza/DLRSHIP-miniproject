@@ -1,5 +1,6 @@
 #ifndef SALE_H
 #define SALE_H
+#include<iostream>
 #include <string>
 #include "date.h"
 

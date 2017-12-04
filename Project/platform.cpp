@@ -505,6 +505,41 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
         case '8':
             break;
 
+        case 'f':
+        {
+            vector<Alien>::iterator aliens;
+            vector<Human>::iterator humans;
+            vector<SpaceCraft>::iterator spacecrafts;
+            vector<Sale>::iterator sales;
+            //
+            for(aliens = vect_alien.begin(); aliens != vect_alien.end(); aliens++)
+            {
+                aliens->show();
+            }
+            for(humans = vect_human.begin(); humans != vect_human.begin(); humans++)
+            {
+                humans->show();
+            }
+            for(spacecrafts = vect_space.begin(); spacecrafts != vect_space.end(); spacecrafts++)
+            {
+                spacecrafts->show();
+            }
+            for(sales = vect_sale.begin(); sales != vect_sale.end(); sales++)
+            {
+                sales->showSale();
+            }
+            break;
+        }
+        case 'h':
+        {
+            vector<Human>::iterator humans;
+            for(humans = vect_human.begin(); humans != vect_human.begin(); humans++)
+            {
+                humans->show();
+            }
+            break;
+        }
+
         default:
 
             cout << "Not a valid option" << endl;

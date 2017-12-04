@@ -6,6 +6,14 @@ Fighter::Fighter(int ms,int cn, float p, /*PropTy pro,*/ string rn, string o): S
     maxSpeed = ms;
 }
 
+void Fighter::show()
+{
+    cout << " Owner: " << owner << endl;
+    cout << " RegNum: " << regNum << endl;
+    cout << " Price: " << price << endl;
+    cout << " Max Crew: " << crewMax << endl;
+    cout << " Max Speed: " << maxSpeed << endl << endl;
+}
 void Fighter::editSpacecraft()
 {
     unsigned int new_maxspeed = 0;

@@ -42,7 +42,7 @@ void SpaceStation::editSpacecraft()
 }
 SpaceStation::~SpaceStation()
 {
-    //
+    cout <<"-Space Station succesfully eliminated-" << endl;
 }
 
 /*string SpaceStation::getReg()

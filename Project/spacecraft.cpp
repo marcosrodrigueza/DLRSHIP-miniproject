@@ -69,7 +69,7 @@ void SpaceCraft::editBaseParameters()
     float new_price = 0;
     unsigned int new_crew = 0;
     //
-    cout << " New parameters of this Spacecraft: (Write 0 in the ones that you don't want to change)" << endl;
+    cout << " New parameters of this Spacecraft:" << endl << "(Write 0 in the ones that you don't want to change)" << endl;
 
     cout << " $ (units): ";
     cin >> new_price;

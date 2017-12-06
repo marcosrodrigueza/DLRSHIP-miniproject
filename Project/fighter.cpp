@@ -29,7 +29,7 @@ void Fighter::editSpacecraft()
 }
 Fighter::~Fighter()
 {
-    //
+    cout <<"-Fighter succesfully eliminated-" << endl;
 }
 
 /*string Fighter::getReg()

@@ -25,7 +25,7 @@ void Platform::displayMenu()
     cout << "   5. Edit SpaceCraft." << endl;
     cout << "   6. Delete SpaceCraft." << endl;
     cout << "   7. Register a Sale." << endl;
-    cout << "   8. Exit. " <<endl << endl;
+    cout << "   8. Save and Exit. " <<endl << endl;
     cout << "   Option : " ;
 }
 
@@ -171,7 +171,7 @@ void Platform::ownerCreator()
     cin >> owner_ty;
     if( owner_ty == 'A') //Alien chosen
     {
-        string nie = "non-sense"; //for use the value by default
+        string nie = "non-sense"; // the value by default
 
         cout << "Please introduce the nie in the format 'NNNNNNNNNN'" << endl << "being 'N' a natural number: ";
         do
@@ -384,6 +384,7 @@ void Platform::deleteOwn() //little ugly without Polymorphism, will be prettier 
         {
             if((*deleter)->getOwner() == id)
             {
+                delete *deleter;
                 vect_space.erase(deleter);
                 deleter--;
             }
@@ -400,6 +401,7 @@ void Platform::deleteOwn() //little ugly without Polymorphism, will be prettier 
         {
             if((*deleter)->getOwner() == id) //access the content of iterator which is a pointer and the dereference ->
             {
+                delete *deleter;
                 vect_space.erase(deleter);
                 deleter--;
             }
@@ -468,7 +470,8 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
             this->spaceCraftSearch(delete_string, itd, found);
             if(found == true)
             {
-                vect_space.erase(itd);
+                delete *itd; //first we free the memory where the content is placed
+                vect_space.erase(itd); //then we erase the pointer from our vector
             }
             else {cout <<"Sorry, there aren't SpaceCrafts with this registration" << endl;}
             break;
@@ -529,7 +532,7 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
         case 'h':
         {
             vector<Human>::iterator humans;
-            for(humans = vect_human.begin(); humans != vect_human.begin(); humans++)
+            for(humans = vect_human.begin(); humans != vect_human.end(); humans++)
             {
                 humans->show();
             }
@@ -548,4 +551,13 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
     }
 
     while (close != 'y');
+}
+
+void Platform::deleter()
+{
+    vector<SpaceCraft*>::iterator free_Spaces;
+    for(free_Spaces = vect_space.begin(); free_Spaces != vect_space.end(); free_Spaces++)
+    {
+        delete *free_Spaces;
+    }
 }

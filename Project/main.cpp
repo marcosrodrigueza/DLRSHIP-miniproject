@@ -31,13 +31,12 @@ int main()
     Platform platform = Platform(test);
     //platform.initialize()
     platform.performer();
-
+    platform.deleter();
 
     return 0;
 }
 
 /*To do list:
- * vector of pointers in the sapcecraft creation
  * enumeration for planet of origin and type of weapon (see how this matchecurrent implementation.//watch how to in reference
  * implement polymorphism for owners class.
  * impelement the last functionalities.
@@ -46,6 +45,7 @@ int main()
  * -show sale and search by date
  * parser for files. ie method to load the file and method to save all the modifications.
  * take a look into restrictions for the type of owner to perform the sale.
+ * automatic date set
 */
 
 

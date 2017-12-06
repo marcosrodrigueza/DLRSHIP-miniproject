@@ -18,7 +18,7 @@ void Destroyer::editSpacecraft()
 }
 Destroyer::~Destroyer()
 {
-    //
+    cout <<"-Destroyer succesfully eliminated-" << endl;
 }
 
 //Need to implement types through lists

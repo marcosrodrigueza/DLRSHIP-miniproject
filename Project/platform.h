@@ -18,6 +18,7 @@ class Platform
 {
     vector<Alien> vect_alien;
     vector<Human> vect_human;
+    vector<Owners*> vect_owner;
     vector<SpaceCraft*> vect_space;
     vector<Sale> vect_sale;
 
@@ -44,6 +45,7 @@ public:
     void spaceCraftCreator();
 
     void performer();
+    void deleter();
 };
 
 #endif // PLATFORM_H

@@ -42,7 +42,7 @@ void SpaceCarrier::editSpacecraft()
 
 SpaceCarrier::~SpaceCarrier()
 {
-
+    cout <<"-Space Carrier succesfully eliminated-" << endl;
 }
 
 /*string SpaceCarrier::getReg()

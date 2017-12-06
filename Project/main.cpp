@@ -1,4 +1,7 @@
 //////////RELEASE NOTES//////////
+// Normally methods are meant to act on its atributes, in this program there is an exception to this design philosophy
+//with the method of check id, that through polymorphism automatically checks the proper syntax of id on the object
+// "pointed" by the iterator without explicitely knowing the class of the object.
 // This version is not fully protected against some User errors.
 // Those errors include a bad id in the sale proccess or entering/selling a Craft to a Owner type not permitted.
 // In this version, polymorphism is only implemented for SpaceCrafts, so the code has not been fully optimized yet.

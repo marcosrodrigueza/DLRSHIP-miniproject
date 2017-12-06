@@ -24,7 +24,7 @@ public:
     bool checkSale(string check);
     string getReg()const;
     string getOwner()const;
-    void setOwner(string & newOwner);
+    void setOwner(const string & newOwner);
     virtual void editSpacecraft();
     virtual ~SpaceCraft();
 };

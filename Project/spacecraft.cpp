@@ -59,7 +59,7 @@ string SpaceCraft::getOwner()const
     return owner;
 }
 
- void SpaceCraft::setOwner(string & newOwner)
+ void SpaceCraft::setOwner(const string & newOwner)
  {
      owner = newOwner;
  }

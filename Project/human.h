@@ -13,10 +13,11 @@ class Human : public Owners
 public:
 
     Human(string n);
-    void buySS(string &ship);
     void editId(const string id);
     string getId();
     void show();
+    bool checkId(const string &n)const;
+    ~Human();
 };
 
 #endif // HUMAN_H

@@ -104,60 +104,46 @@ bool Platform::checkRegNum(const string &n)const
     }
     return selector;
 }
-void Platform::searchAlien(const string &id, vector<Alien>::iterator &iterator)
+
+void Platform::searchOwner(const string &id, vector<Owners*>::iterator &iterator, bool &found)
 {
-    for(iterator = vect_alien.begin(); iterator != vect_alien.end(); iterator++)
+    for(iterator = vect_owner.begin(); iterator != vect_owner.end(); iterator ++)
     {
-        if(iterator->getId() == id) break;
+        if((*iterator)->getId() == id)
+        {
+            found = true;
+            break;
+            cout << "--FOUND--" <<endl;
+        }
     }
 }
-void Platform::searchHuman(const string &id, vector<Human>::iterator &iterator) //Not protected against non find
+
+void Platform::modifyItsSpaces(const string &id /*old id*/,const string &n_id/*new one*/)
 {
-    for(iterator = vect_human.begin(); iterator != vect_human.end(); iterator++)
+     vector<SpaceCraft*>::iterator iter;
+
+    for(iter = vect_space.begin(); iter != vect_space.end(); iter ++)
     {
-        if(iterator->getId() == id) break;
+        if((*iter)->getOwner() == id)
+        {
+            (*iter)->setOwner(n_id);
+        }
     }
 }
 
-void Platform::editAlien(vector<Alien>::iterator &iterator)
+void Platform::modifyItsSpaces(const string &id)
 {
-    //if(iterator != vect_alien.end()) //Means that it exists
-    //{
-        string new_id = "non-sense";
-        bool new_id_correct = false;
-        //
-        do
+     vector<SpaceCraft*>::iterator iter;
+
+    for(iter = vect_space.begin(); iter != vect_space.end(); iter ++)
+    {
+        if((*iter)->getOwner() == id)
         {
-            cout << "Introduce the new id of the alien:";
-            cin >> new_id;
-            new_id_correct = this->checkNie(new_id);
-
-        } while(new_id_correct != true);
-
-        iterator-> editId(new_id);
-    //}
-
-    //else{ cout << "Sorry, the alien does not exists" << endl;}
-}
-
-void Platform::editHuman(vector<Human>::iterator &iterator) //in comment the future protector
-{
-    //if(iterator != vect_human.end())
-    //{
-        string new_id = "non-sense";
-        bool new_id_correct = false;
-        do
-        {
-            cout << "Introduce the new id of the human:";
-            cin >> new_id;
-            new_id_correct = this->checkNif(new_id);
-
-        } while(new_id_correct != true);
-
-        iterator-> editId(new_id);
-    //}
-
-    //else{cout << "Sorry, the human does not exists" << endl;}
+            delete *iter;
+            vect_space.erase(iter);
+            iter --;
+        }
+    }
 }
 
 void Platform::ownerCreator()
@@ -173,31 +159,30 @@ void Platform::ownerCreator()
     {
         string nie = "non-sense"; // the value by default
 
-        cout << "Please introduce the nie in the format 'NNNNNNNNNN'" << endl << "being 'N' a natural number: ";
         do
         {
+            cout << "Please introduce the nie in the format 'NNNNNNNNNN'" << endl << "being 'N' a natural number: ";
             cin >> nie;
             correct = this->checkNie(nie); //we verify the identity through a bool variable
                                           //We may introduce a message for try again
         }
         while (correct == false);
-        vect_alien.push_back(Alien(nie));//if OK then we create the object
+        vect_owner.push_back(new Alien(nie));//if OK then we create the object
     }
     else if (owner_ty == 'h') //Human chosen
     {
         string nif = "non-sense";
 
-        cout << "Please introduce the nif in the format 'NNNNNNNNL' "<< endl << "being 'N' a natural number and 'L'";
-        cout << "a CAPITAL lettter: ";
-
         do
         {
+            cout << "Please introduce the nif in the format 'NNNNNNNNL' "<< endl << "being 'N' a natural number and 'L'";
+            cout << "a CAPITAL lettter: ";
             cin >> nif;
             correct = this->checkNif(nif); //we verify the identity through a bool variable
         }                                  //We may introduce a message for try again
 
         while (correct == false);
-        vect_human.push_back(Human(nif));//if OK then we create the object
+        vect_owner.push_back(new Human(nif));//if OK then we create the object
 
     }
     else
@@ -209,28 +194,68 @@ void Platform::ownerCreator()
 void Platform::editorOwn()
 {
     string id = "non-sense";
+    string new_id ="non-sense";
     bool alien = false;
     bool human = false;
+    bool own_found = false;
+    vector<Owners*>::iterator it;
+    vector<SpaceCraft*>::iterator space_editor;
     //
     cout << "Introduce the id of the owner: ";
     cin >> id;
     alien = this->checkNie(id);
     human = this->checkNif(id);
 
-    if(alien == true && human == false) //alien detected
+    if(alien == true || human == true) //only checks without loop and allow search
     {
-        vector<Alien>::iterator it;
-        this-> searchAlien(id,it);
-        this->editAlien(it);
-    }
-    else if(alien == false && human == true) //human detected
-    {
-        vector<Human>::iterator ite;
-        this->searchHuman(id,ite); //=Alien-> will be the same with polymorphism
-        this->editHuman(ite);
+        this->searchOwner(id,it,own_found);
     }
 
     else { cout << "Not valid format" << endl; }
+
+    if (own_found == true) //can not be true if search has not been done
+    {
+        bool new_id_correct = false;
+        do
+        {
+            cout << "Introduce the new id of the Owner:";
+            cin >> new_id;  //we are using the variable in order to set the new id
+            new_id_correct = (*it)->checkId(new_id); //checks that syntax corresponds to the one demanded by
+                                                    //the object to be edited
+        } while(new_id_correct != true);
+
+        (*it)->editId(new_id); //now that the syntax is correct we change the id
+        this->modifyItsSpaces(id,new_id); //and here we apply this changes to the spaceships of the owner
+    }
+}
+void Platform::deleteOwn()
+{
+    string id = "non-sense";
+    bool alien = false;
+    bool human = false;
+    bool own_found = false;
+    vector<Owners*>::iterator it;
+    vector<SpaceCraft*>::iterator space_editor;
+    //
+    cout << "Introduce the id of the owner you want to erase: ";
+    cin >> id;
+    alien = this->checkNie(id);
+    human = this->checkNif(id);
+
+    if(alien == true || human == true) //only checks without loop and allow search
+    {
+        this->searchOwner(id,it,own_found);
+    }
+
+    else { cout << "Not valid format" << endl; }
+
+    if (own_found == true) //can not be true if search has not been done
+    {
+        delete *it; //delete the contents (the object itself)
+        vect_owner.erase(it);
+
+        this->modifyItsSpaces(id); //if only one atribute the modification is an erase
+    }
 }
 
 void Platform::spaceCraftCreator()
@@ -360,56 +385,6 @@ void Platform::spaceCraftSearch(const string &registration, vector<SpaceCraft*>:
             cout << "--FOUND--" <<endl;
         }
     }
-}
-
-void Platform::deleteOwn() //little ugly without Polymorphism, will be prettier once that's implemented.
-{
-    string id = "non-sense";
-    bool alien = false;
-    bool human = false;
-    //
-    cout << "Introduce the id of the owner: ";
-    cin >> id;
-    alien = this->checkNie(id);
-    human = this->checkNif(id);
-
-    if(alien == true && human == false) //alien detected
-    {
-        vector<Alien>::iterator it;
-        this-> searchAlien(id,it);
-        vect_alien.erase(it);
-        //now search and erase its SpaceCrafts(later we will be able to pass them to other owner).
-        vector<SpaceCraft*>::iterator deleter;
-        for(deleter = vect_space.begin(); deleter != vect_space.end(); deleter++)
-        {
-            if((*deleter)->getOwner() == id)
-            {
-                delete *deleter;
-                vect_space.erase(deleter);
-                deleter--;
-            }
-        }
-    }
-    else if(alien == false && human == true) //human detected
-    {
-        vector<Human>::iterator ite;
-        this->searchHuman(id,ite); //=Alien-> will be the same with polymorphism
-        vect_human.erase(ite);
-        //now search and erase its SpaceCrafts(later we will be able to pass them to other owner).
-        vector<SpaceCraft*>::iterator deleter;
-        for(deleter = vect_space.begin(); deleter != vect_space.end(); deleter++)
-        {
-            if((*deleter)->getOwner() == id) //access the content of iterator which is a pointer and the dereference ->
-            {
-                delete *deleter;
-                vect_space.erase(deleter);
-                deleter--;
-            }
-        }
-    }
-
-    else { cout << "Not valid format" << endl; }
-
 }
 
 void Platform::performer() //Deals with the menu and call the proper methods of the classes
@@ -555,6 +530,12 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
 
 void Platform::deleter()
 {
+
+    vector<Owners*>::iterator free_Owners;
+    for(free_Owners = vect_owner.begin(); free_Owners != vect_owner.end(); free_Owners++)
+    {
+        delete *free_Owners;
+    }
     vector<SpaceCraft*>::iterator free_Spaces;
     for(free_Spaces = vect_space.begin(); free_Spaces != vect_space.end(); free_Spaces++)
     {

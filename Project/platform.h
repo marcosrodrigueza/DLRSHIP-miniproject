@@ -33,11 +33,10 @@ public:
     bool checkNie(const string &n)const;
     bool checkNif(const string &n)const;
     bool checkRegNum(const string &n)const;
-    void searchAlien(const string &id, vector<Alien>::iterator &iterator);
-    void searchHuman(const string &id, vector<Human>::iterator &iterator);
+    void searchOwner(const string &id, vector<Owners*>::iterator &iterator, bool &found);
     void spaceCraftSearch(const string &registration, vector<SpaceCraft*>::iterator &iterator, bool &found);
-    void editAlien(vector<Alien>::iterator &iterator);
-    void editHuman(vector<Human>::iterator &iterator);
+    void  modifyItsSpaces(const string &id /*old id*/,const string &n_id/*new one*/);
+    void  modifyItsSpaces(const string &id); //if only one argument is for erasing its spaces
     void ownerCreator(); //Englobes contructor for alien and human and manage all the checkings
                          //Maybe its not needed when exceptions are explained
     void editorOwn();

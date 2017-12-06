@@ -13,10 +13,11 @@ class Alien : public Owners
 public:
 
     Alien(string n);
-    void buyD(string &ship);
     void editId(const string id);
     string getId();
     void show();
+    bool checkId(const string &n)const;
+    ~Alien();
 };
 
 #endif // ALIEN_H

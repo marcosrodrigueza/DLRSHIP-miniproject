@@ -7,11 +7,11 @@ class Owners
 {
 public:
 
-    void show();
-    void buySC(string &ship);
-    void buyF(string &ship);
+    virtual void show();
     virtual void editId(const string id)= 0;
     virtual string getId()= 0;
+    virtual bool checkId(const string &n)const = 0;
+    virtual ~Owners();
 };
 
 #endif // OWNERS_H

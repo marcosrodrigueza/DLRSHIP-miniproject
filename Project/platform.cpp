@@ -243,7 +243,7 @@ void Platform::spaceCraftCreator()
     bool human = false;
     unsigned int crew = 0;
     float price = 0.0;
-    SpaceCraft *p;
+
     //
     do
     {
@@ -290,10 +290,9 @@ void Platform::spaceCraftCreator()
             cout << "how many weapons does it have?: ";
             cin >> num_weapons;
             //Since we do not know lists, the types will be developed in the future.
-            p = new  Destroyer(crew,price,registration,owner);
-            vect_space.push_back(*p);
+
+            vect_space.push_back(new  Destroyer(crew,price,registration,owner));
             cout << "---Destroyer Created---" << endl;
-            delete p;
         }
         else if(type == 2)
         {
@@ -304,10 +303,9 @@ void Platform::spaceCraftCreator()
             cin >> speedTop;
             cout << "how many weapons does it have?: ";
             cin >> num_weapons;
-            p = new Fighter(speedTop,crew,price,registration,owner);
-            vect_space.push_back(*p);
+
+            vect_space.push_back(new Fighter(speedTop,crew,price,registration,owner));
             cout << "---Fighter Created---" << endl;
-            delete p;
         }
         else if(type == 3)
         {
@@ -322,10 +320,8 @@ void Platform::spaceCraftCreator()
             cout << "What is its cruise speed?(in light-years): ";
             cin >> speedCruise;
 
-            p = new SpaceCarrier(maxLoad,eShield,speedCruise,crew,price,registration,owner);
-            vect_space.push_back(*p);
+            vect_space.push_back(new SpaceCarrier(maxLoad,eShield,speedCruise,crew,price,registration,owner));
             cout << "---Carrier Created---" << endl;
-            delete p;
 
         }
         else if(type == 4)
@@ -340,10 +336,10 @@ void Platform::spaceCraftCreator()
             cin >> eShield;
             cout << "Maximum of passangers: ";
             cin >> passengers;
-            p = new SpaceStation(hangars,passengers,eShield,crew,price,registration,owner);
-            vect_space.push_back(*p);
+
+            vect_space.push_back(new SpaceStation(hangars,passengers,eShield,crew,price,registration,owner));
             cout << "---Carrier Created---" << endl;
-           delete p;
+
         }
         else
         {
@@ -353,11 +349,11 @@ void Platform::spaceCraftCreator()
     } while(valid != true);
 }
 
-void Platform::spaceCraftSearch(const string &registration, vector<SpaceCraft>::iterator &iterator, bool &found)
+void Platform::spaceCraftSearch(const string &registration, vector<SpaceCraft*>::iterator &iterator, bool &found)
 {
     for(iterator = vect_space.begin(); iterator != vect_space.end(); iterator ++)
     {
-        if(iterator->getReg() == registration)
+        if((*iterator)->getReg() == registration)
         {
             found = true;
             break;
@@ -383,10 +379,10 @@ void Platform::deleteOwn() //little ugly without Polymorphism, will be prettier 
         this-> searchAlien(id,it);
         vect_alien.erase(it);
         //now search and erase its SpaceCrafts(later we will be able to pass them to other owner).
-        vector<SpaceCraft>::iterator deleter;
+        vector<SpaceCraft*>::iterator deleter;
         for(deleter = vect_space.begin(); deleter != vect_space.end(); deleter++)
         {
-            if(deleter->getOwner() == id)
+            if((*deleter)->getOwner() == id)
             {
                 vect_space.erase(deleter);
                 deleter--;
@@ -399,10 +395,10 @@ void Platform::deleteOwn() //little ugly without Polymorphism, will be prettier 
         this->searchHuman(id,ite); //=Alien-> will be the same with polymorphism
         vect_human.erase(ite);
         //now search and erase its SpaceCrafts(later we will be able to pass them to other owner).
-        vector<SpaceCraft>::iterator deleter;
+        vector<SpaceCraft*>::iterator deleter;
         for(deleter = vect_space.begin(); deleter != vect_space.end(); deleter++)
         {
-            if(deleter->getOwner() == id)
+            if((*deleter)->getOwner() == id) //access the content of iterator which is a pointer and the dereference ->
             {
                 vect_space.erase(deleter);
                 deleter--;
@@ -447,14 +443,14 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
         {
             string reg = "non-sense";
             bool fnd = false;
-            vector<SpaceCraft>::iterator its;
+            vector<SpaceCraft*>::iterator its;
             //
             cout << "Introduce the registration number: ";
             cin >> reg;
             this->spaceCraftSearch(reg, its, fnd);
             if(fnd == true)
             {
-                its->editSpacecraft();
+                (*its)->editSpacecraft();
             }
             else {cout <<"Sorry, there aren't SpaceCrafts with this registration" << endl;}
 
@@ -465,7 +461,7 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
         {
             string delete_string = "non-sense";
             bool found = false;
-            vector<SpaceCraft>::iterator itd;
+            vector<SpaceCraft*>::iterator itd;
             //
             cout << "Introduce the registration number: ";
             cin >> delete_string;
@@ -482,14 +478,14 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
             bool found_for_sale = false;
             bool create_sale = false;
             string regTarget = "non-sense";
-            vector<SpaceCraft>::iterator saler;
+            vector<SpaceCraft*>::iterator saler;
             //
             cout << "Introduce the registration number: ";
             cin >> regTarget;
             this->spaceCraftSearch(regTarget, saler, found_for_sale);
             if(found_for_sale == true)
             {
-                saler->transaction(create_sale);
+                (*saler)->transaction(create_sale);
             }
             else
             {
@@ -498,7 +494,7 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
 
             if(create_sale == true)
             {
-                vect_sale.push_back(Sale(actualDate, saler->getOwner()));
+                vect_sale.push_back(Sale(actualDate, (*saler)->getOwner()));
             }
             break;
         }
@@ -509,7 +505,7 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
         {
             vector<Alien>::iterator aliens;
             vector<Human>::iterator humans;
-            vector<SpaceCraft>::iterator spacecrafts;
+            vector<SpaceCraft*>::iterator spacecrafts;
             vector<Sale>::iterator sales;
             //
             for(aliens = vect_alien.begin(); aliens != vect_alien.end(); aliens++)
@@ -522,7 +518,7 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
             }
             for(spacecrafts = vect_space.begin(); spacecrafts != vect_space.end(); spacecrafts++)
             {
-                spacecrafts->show();
+                (*spacecrafts)->show();
             }
             for(sales = vect_sale.begin(); sales != vect_sale.end(); sales++)
             {

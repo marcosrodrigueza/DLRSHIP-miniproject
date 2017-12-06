@@ -18,7 +18,7 @@ class Platform
 {
     vector<Alien> vect_alien;
     vector<Human> vect_human;
-    vector<SpaceCraft> vect_space;
+    vector<SpaceCraft*> vect_space;
     vector<Sale> vect_sale;
 
 
@@ -34,7 +34,7 @@ public:
     bool checkRegNum(const string &n)const;
     void searchAlien(const string &id, vector<Alien>::iterator &iterator);
     void searchHuman(const string &id, vector<Human>::iterator &iterator);
-    void spaceCraftSearch(const string &registration, vector<SpaceCraft>::iterator &iterator, bool &found);
+    void spaceCraftSearch(const string &registration, vector<SpaceCraft*>::iterator &iterator, bool &found);
     void editAlien(vector<Alien>::iterator &iterator);
     void editHuman(vector<Human>::iterator &iterator);
     void ownerCreator(); //Englobes contructor for alien and human and manage all the checkings

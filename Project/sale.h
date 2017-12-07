@@ -15,6 +15,7 @@ public:
 
     Sale(Date d, string i);
     void showSale();
+    bool compareDate(const Date& date);
 };
 
 #endif // SALE_H

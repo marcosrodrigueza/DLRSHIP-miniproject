@@ -8,7 +8,7 @@ class Date
 public:
    int day, month, year;
    void display();
-
+   bool operator ==(const Date& d2);
 };
 
 #endif // DATE_H

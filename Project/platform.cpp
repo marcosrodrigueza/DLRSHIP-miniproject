@@ -413,6 +413,23 @@ void Platform::showSales()
     }
 }
 
+void Platform::showSales(Date d)
+{
+    vector<Sale>::iterator sales;
+    bool date_equ;
+    //
+    for(sales = vect_sale.begin(); sales != vect_sale.end(); sales++)
+    {
+        date_equ = sales->compareDate(d); //not the optimum solution, but reasons explained below
+        if(date_equ == true) //if the comparison returns true we show
+            sales->showSale();
+    }
+}
+/* In the original aproach we used  if(saler->getDate() == d) that is more direct since it does not need an extra variable
+ * like date_equ but the compiler did not recognize the left element as a Date type although the method getDate()
+ * returns the Date atribute in the Sale object
+ */
+
 void Platform::performer() //Deals with the menu and call the proper methods of the classes
 {
     //we are supposed to have called initializer() before

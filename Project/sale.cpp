@@ -13,3 +13,12 @@ void Sale::showSale()
     cout << "Date: ";
     dateSale.display();
 }
+
+bool Sale::compareDate(const Date& date)
+{
+   bool check = false;
+   if(dateSale == date)
+       check = true;
+   return check;
+}
+

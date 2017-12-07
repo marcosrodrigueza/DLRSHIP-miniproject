@@ -43,6 +43,7 @@ public:
     void showOwners();
     void showSpacesAvailible();
     void showSales();
+    void showSales(Date d);
     void performer();
     void deleter();
 };

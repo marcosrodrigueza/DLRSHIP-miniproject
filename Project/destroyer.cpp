@@ -5,6 +5,7 @@ Destroyer::Destroyer(int cm, float p, /*PropTy pro,*/string rn, string o): Space
 
 void Destroyer::show()
 {
+    cout << "-------------------------------------" << endl;
     cout << " Owner: " << owner << endl;
     cout << " RegNum: " << regNum << endl;
     cout << " Price: " << price << endl;

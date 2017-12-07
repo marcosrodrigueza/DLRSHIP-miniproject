@@ -25,7 +25,7 @@ void Platform::displayMenu()
     cout << "   5. Edit SpaceCraft." << endl;
     cout << "   6. Delete SpaceCraft." << endl;
     cout << "   7. Register a Sale." << endl;
-    cout << "   8. Save and Exit. " <<endl << endl;
+    cout << "   8. Show owners registered. " <<endl << endl;
     cout << "   Option : " ;
 }
 
@@ -387,6 +387,32 @@ void Platform::spaceCraftSearch(const string &registration, vector<SpaceCraft*>:
     }
 }
 
+void Platform::showOwners()
+{
+    vector<Owners*>::iterator shower;
+    for(shower = vect_owner.begin(); shower != vect_owner.end(); shower++)
+    {
+        (*shower)->show();
+    }
+}
+void Platform::showSpacesAvailible()
+{
+    vector<SpaceCraft*>::iterator av;
+    for(av = vect_space.begin(); av != vect_space.end(); av++)
+    {
+        if((*av)->getAvailible() == true) //if it has not been purchased, show this spacecraft
+            (*av)->show();
+    }
+}
+void Platform::showSales()
+{
+    vector<Sale>::iterator sales;
+    for(sales = vect_sale.begin(); sales != vect_sale.end(); sales++)
+    {
+        sales->showSale();
+    }
+}
+
 void Platform::performer() //Deals with the menu and call the proper methods of the classes
 {
     //we are supposed to have called initializer() before
@@ -477,10 +503,13 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
             break;
         }
         case '8':
-            break;
 
+            this->showOwners();
+            break;
+         /*
         case 'f':
         {
+
             vector<Alien>::iterator aliens;
             vector<Human>::iterator humans;
             vector<SpaceCraft*>::iterator spacecrafts;
@@ -510,10 +539,10 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
             for(humans = vect_human.begin(); humans != vect_human.end(); humans++)
             {
                 humans->show();
-            }
+
             break;
         }
-
+        */
         default:
 
             cout << "Not a valid option" << endl;
@@ -522,7 +551,7 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
 
         cout << "Do you want to close the program? (y/N): ";
         cin >> close;
-        if(close == 'N') cout << endl;
+        if(close == 'N') cout <<  "\033[2J\033[1;1H"; //clear screen and set cursor to beginning
     }
 
     while (close != 'y');

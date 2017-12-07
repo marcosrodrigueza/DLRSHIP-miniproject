@@ -14,6 +14,8 @@ protected:
     //PropTy prop;       In comment to be able to compie before implementing
     string regNum;
     string owner;
+    bool av_sale; // to determine its state. true = available for sale: false = non available.
+                 //intern variable, never can be edited explicitely from the interface.
     void editBaseParameters();
 
 public:
@@ -25,6 +27,7 @@ public:
     string getReg()const;
     string getOwner()const;
     void setOwner(const string & newOwner);
+    bool getAvailible()const;
     virtual void editSpacecraft();
     virtual ~SpaceCraft();
 };

@@ -16,8 +16,6 @@ using namespace std;
 
 class Platform
 {
-    vector<Alien> vect_alien;
-    vector<Human> vect_human;
     vector<Owners*> vect_owner;
     vector<SpaceCraft*> vect_space;
     vector<Sale> vect_sale;
@@ -42,7 +40,9 @@ public:
     void editorOwn();
     void deleteOwn();
     void spaceCraftCreator();
-
+    void showOwners();
+    void showSpacesAvailible();
+    void showSales();
     void performer();
     void deleter();
 };

@@ -17,6 +17,7 @@ string Human::getId() {return nif;}
 
 void Human::show()
 {
+    cout << "-------------------------------------" << endl;
     cout << "nif:" << nif << endl;
 }
 

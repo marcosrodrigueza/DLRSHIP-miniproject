@@ -8,6 +8,7 @@ Fighter::Fighter(int ms,int cn, float p, /*PropTy pro,*/ string rn, string o): S
 
 void Fighter::show()
 {
+    cout << "-------------------------------------" << endl;
     cout << " Owner: " << owner << endl;
     cout << " RegNum: " << regNum << endl;
     cout << " Price: " << price << endl;

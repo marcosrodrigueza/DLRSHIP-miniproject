@@ -11,6 +11,7 @@ SpaceStation::SpaceStation(int nh,int mp, bool es, int cn, float p,/* PropTy pro
 
 void SpaceStation::show()
 {
+    cout << "-------------------------------------" << endl;
     cout << " Owner: " << owner << endl;
     cout << " RegNum: " << regNum << endl;
     cout << " Price: " << price << endl;

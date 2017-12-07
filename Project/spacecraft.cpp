@@ -7,6 +7,7 @@ SpaceCraft::SpaceCraft(int cm, float pri/*, PropTy prop*/, string rn, string o)
  //propType = prop;
  regNum = rn;
  owner = o;
+ av_sale = true; //if you register it of course its availible by default
 }
 
 void SpaceCraft::show()
@@ -32,6 +33,7 @@ void SpaceCraft::transaction(bool &create_sale)
     }
     else
     {
+        av_sale = false;
         create_sale = true;
         cout << "---Done succesfully---" << endl;
     }
@@ -62,6 +64,11 @@ string SpaceCraft::getOwner()const
  void SpaceCraft::setOwner(const string & newOwner)
  {
      owner = newOwner;
+ }
+
+ bool SpaceCraft::getAvailible()const
+ {
+     return av_sale;
  }
 
 void SpaceCraft::editBaseParameters()

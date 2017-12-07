@@ -40,15 +40,13 @@ int main()
 }
 
 /*To do list:
- * enumeration for planet of origin and type of weapon (see how this matchecurrent implementation.//watch how to in reference
- * implement polymorphism for owners class.
+ * enumeration for planet of origin and type of weapon (see how this matches current implementation.//watch how to in reference
  * impelement the last functionalities.
- * - show owners
- * - show spacecrafts
  * -show sale and search by date
  * parser for files. ie method to load the file and method to save all the modifications.
  * take a look into restrictions for the type of owner to perform the sale.
  * automatic date set
+ * flags in edits and so, check for the user experience
 */
 
 

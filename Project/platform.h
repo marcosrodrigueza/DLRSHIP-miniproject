@@ -1,5 +1,6 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
+#include <iostream>
 #include <vector>
 #include "date.h"
 #include "owners.h"

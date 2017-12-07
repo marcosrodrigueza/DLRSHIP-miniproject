@@ -1,5 +1,4 @@
 #include "platform.h"
-#include <iostream>
 
 using namespace std;
 
@@ -10,6 +9,7 @@ Platform::Platform(Date ad)
 void Platform::initialize() //Load values from the files into the programs
 {  
 
+
 }
 
 void Platform::displayMenu()
@@ -18,14 +18,16 @@ void Platform::displayMenu()
     cout << "   ***** Welcome to DLRSHIP *****" << endl;
     cout << "-------------------------------------" << endl;
     cout << "   Select one of the options below:" << endl;
-    cout << "   1. Introduce Owner." << endl;
-    cout << "   2. Edit Owner." << endl;
-    cout << "   3. Delete Owner." << endl;
-    cout << "   4. Introduce new SpaceCraft." << endl;
-    cout << "   5. Edit SpaceCraft." << endl;
-    cout << "   6. Delete SpaceCraft." << endl;
-    cout << "   7. Register a Sale." << endl;
-    cout << "   8. Show owners registered. " <<endl << endl;
+    cout << "   0. Introduce Owner." << endl;
+    cout << "   1. Edit Owner." << endl;
+    cout << "   2. Delete Owner." << endl;
+    cout << "   3. Introduce new SpaceCraft." << endl;
+    cout << "   4. Edit SpaceCraft." << endl;
+    cout << "   5. Delete SpaceCraft." << endl;
+    cout << "   6. Register a Sale." << endl;
+    cout << "   7. Show owners registered. " <<endl;
+    cout << "   8. Show Space Ships for sale" << endl;
+    cout << "   9.Show the record of sales" << endl << endl;
     cout << "   Option : " ;
 }
 
@@ -443,23 +445,23 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
          //the implementation through char is to avoid the problems with ints when you introduce other type
         switch (option)
         {
-        case '1':
+        case '0':
             this->ownerCreator();
             break;
 
-        case '2' :
+        case '1' :
             this->editorOwn();
             break;
 
-        case '3' :
+        case '2' :
             this->deleteOwn();
             break;
 
-        case '4' :
+        case '3' :
             this->spaceCraftCreator();
             break;
 
-        case '5' :
+        case '4' :
         {
             string reg = "non-sense";
             bool fnd = false;
@@ -477,7 +479,7 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
             break;
         }
 
-        case '6' :
+        case '5' :
         {
             string delete_string = "non-sense";
             bool found = false;
@@ -494,7 +496,7 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
             else {cout <<"Sorry, there aren't SpaceCrafts with this registration" << endl;}
             break;
         }
-        case '7' : // not error-friendly yet
+        case '6' : // not error-friendly yet
         {
             bool found_for_sale = false;
             bool create_sale = false;
@@ -506,7 +508,7 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
             this->spaceCraftSearch(regTarget, saler, found_for_sale);
             if(found_for_sale == true)
             {
-                (*saler)->transaction(create_sale);
+                (*saler)->transaction(create_sale); //we pass a bool that will told us if the id has been changed
             }
             else
             {
@@ -519,47 +521,54 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
             }
             break;
         }
-        case '8':
+        case '7':
 
             this->showOwners();
+            cout << endl;
             break;
-         /*
-        case 'f':
-        {
 
-            vector<Alien>::iterator aliens;
-            vector<Human>::iterator humans;
-            vector<SpaceCraft*>::iterator spacecrafts;
-            vector<Sale>::iterator sales;
-            //
-            for(aliens = vect_alien.begin(); aliens != vect_alien.end(); aliens++)
+        case '8':
+            this->showSpacesAvailible();
+            cout << endl;
+            break;
+
+        case '9':
+        {
+            char c = '\0';
+            cout << "Do you want to search in a specific date(y/N):";
+            cin >> c;
+            cout << "*************************" << endl;
+            if(c == 'y')
             {
-                aliens->show();
+                Date start = vect_sale[0].getDate(); //we get the first day in the record
+                Date target;
+                //
+                cout << " Starting at ";
+                start.display(); //we show the first date to the user
+                cout << " Day: ";
+                cin >> target.day; //not protected against bad user input, its just not found
+                cout << " Month: ";
+                cin >> target.month;
+                cout << " Year: ";
+                cin >> target.year;
+
+                //create the target date
+                this->showSales(target);
+                cout << endl;
             }
-            for(humans = vect_human.begin(); humans != vect_human.begin(); humans++)
+
+            else if(c == 'N')
             {
-                humans->show();
+                this->showSales();
+                cout << endl;
             }
-            for(spacecrafts = vect_space.begin(); spacecrafts != vect_space.end(); spacecrafts++)
-            {
-                (*spacecrafts)->show();
-            }
-            for(sales = vect_sale.begin(); sales != vect_sale.end(); sales++)
-            {
-                sales->showSale();
-            }
+
+            else
+                cout << "--Error in the key pressed--";
+
             break;
         }
-        case 'h':
-        {
-            vector<Human>::iterator humans;
-            for(humans = vect_human.begin(); humans != vect_human.end(); humans++)
-            {
-                humans->show();
 
-            break;
-        }
-        */
         default:
 
             cout << "Not a valid option" << endl;

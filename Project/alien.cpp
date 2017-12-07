@@ -17,7 +17,7 @@ string Alien::getId() {return nie;}
 
 void Alien::show()
 {
-    cout << "-------------------------" << endl;
+    cout << "-------------------------------------" << endl;
     cout << "nie:" << nie << endl;
 }
 

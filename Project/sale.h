@@ -15,6 +15,7 @@ public:
 
     Sale(Date d, string i);
     void showSale();
+    Date getDate();
     bool compareDate(const Date& date);
 };
 

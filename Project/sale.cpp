@@ -14,6 +14,11 @@ void Sale::showSale()
     dateSale.display();
 }
 
+Date Sale::getDate()
+{
+    return dateSale;
+}
+
 bool Sale::compareDate(const Date& date)
 {
    bool check = false;

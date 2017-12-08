@@ -1,7 +1,11 @@
 #include "destroyer.h"
 #include "spacecraft.h"
 
-Destroyer::Destroyer(int cm, float p, /*PropTy pro,*/string rn, string o): SpaceCraft(cm,p /*,pro*/,rn,o){}
+Destroyer::Destroyer(int cm, float p, /*PropTy pro,*/string rn, string o,vector<char> w): SpaceCraft(cm,p /*,pro*/,rn,o)
+{
+    destroyer_weapons = w;
+    num_weapons = w.size();
+}
 
 void Destroyer::show()
 {

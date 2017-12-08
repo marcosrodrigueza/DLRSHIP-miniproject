@@ -325,37 +325,65 @@ void Platform::spaceCraftCreator()
         else { cout << "Not valid format" << endl;}
     }
     while(valid != true);
+
     cout << "Enter the maximum crew number: ";
     cin >> crew;
     cout << "Enter the selling price in Units: ";
     cin >> price;
+    cout <<  "\033[2J\033[1;1H"; //clear screen
     do
     {
         cout << "Please, choose its specific type:" << endl << "-1.Destroyer" << endl << "-2. Fighter" << endl;
         cout << "-3. SpaceCarrier" << endl << "4.-SpaceStation" << endl << "Type: ";
         cin >> type;
-        if(type == 1)
+
+        if(type == 1) //means Destroyer selected
         {
             unsigned int num_weapons = 0;
+            vector<char> weapons;
+            char type_weapon = '\0';
             //
             cout << "how many weapons does it have?: ";
-            cin >> num_weapons;
-            //Since we do not know lists, the types will be developed in the future.
+            cin >> num_weapons; //we ask for the lenght
+            cout << endl << "//////////////////////////////" ;
+            cout << endl << " Types are:" << endl << " 1. Plasma Cannon" << endl << " 2. Thermonuclear missiles" << endl;
+            cout << " 3. Laser beams" << endl << " 4. PEM" << endl << "//////////////////////////////" << endl;
 
-            vect_space.push_back(new  Destroyer(crew,price,registration,owner));
+            for(unsigned int i = 0; i < num_weapons; i++) //loop with the num of weapons specified
+            {
+                cout << "weapon " << i+1 << ": ";
+                cin >> type_weapon;
+
+                weapons.push_back(type_weapon);
+            }
+
+            vect_space.push_back(new  Destroyer(crew,price,registration,owner,weapons));
             cout << "---Destroyer Created---" << endl;
         }
         else if(type == 2)
         {
             unsigned int num_weapons = 0;
             unsigned int speedTop = 0;
+            vector<char> weapons;
+            char type_weapon = '\0';
             //
             cout << "What is its maximum speed? (in light-years): ";
             cin >> speedTop;
             cout << "how many weapons does it have?: ";
             cin >> num_weapons;
+            cout << endl << "//////////////////////////////" ;
+            cout << endl << " Types are:" << endl << " 1. Plasma Cannon" << endl << " 2. Thermonuclear missiles" << endl;
+            cout << "//////////////////////////////" << endl;
 
-            vect_space.push_back(new Fighter(speedTop,crew,price,registration,owner));
+            for(unsigned int i = 0; i < num_weapons; i++) //loop with the num of weapons specified
+            {
+                cout << "weapon " << i+1 << ": ";
+                cin >> type_weapon;
+
+                weapons.push_back(type_weapon); //loads the vector
+            }
+
+            vect_space.push_back(new Fighter(speedTop,crew,price,registration,owner,weapons));
             cout << "---Fighter Created---" << endl;
         }
         else if(type == 3)

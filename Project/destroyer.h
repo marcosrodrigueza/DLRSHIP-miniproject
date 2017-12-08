@@ -10,12 +10,13 @@ using namespace std;
 
 class Destroyer : public SpaceCraft
 {
-    vector<Weapon> destroyer_weapons;
+    vector<char> destroyer_weapons;
+    int num_weapons; //to know the weapon number for the file loader
 
 
 public:
 
-    Destroyer(int cm, float p/*, PropTy pro*/, string rn, string o);
+    Destroyer(int cm, float p/*, PropTy pro*/, string rn, string o, vector<char> w);
     void show();
    // string getReg();
     void editSpacecraft();

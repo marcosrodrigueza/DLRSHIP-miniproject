@@ -1,9 +1,11 @@
 #include "fighter.h"
 #include "spacecraft.h"
 
-Fighter::Fighter(int ms,int cn, float p, /*PropTy pro,*/ string rn, string o): SpaceCraft(cn, p, /*pro,*/ rn, o)
+Fighter::Fighter(int ms,int cn, float p, /*PropTy pro,*/ string rn, string o, vector<char> w): SpaceCraft(cn, p, /*pro,*/ rn, o)
 {
     maxSpeed = ms;
+    fighter_weapons = w;
+    num_weapons = w.size();
 }
 
 void Fighter::show()

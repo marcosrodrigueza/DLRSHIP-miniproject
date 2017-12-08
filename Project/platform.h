@@ -2,6 +2,7 @@
 #define PLATFORM_H
 #include <iostream>
 #include <vector>
+#include <map>
 #include <fstream>
 #include "date.h"
 #include "owners.h"

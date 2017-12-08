@@ -1,7 +1,7 @@
 #include "weapon.h"
 
-/*Weapon::Weapon(WeTy t)
+Weapon::Weapon(WeTy_1 t)
 {
     type = t;
 }
-*/
+

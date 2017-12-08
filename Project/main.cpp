@@ -32,8 +32,9 @@ int main()
     test.year = 2017;
 
     Platform platform = Platform(test);
-    //platform.initialize()
+    platform.initialize();
     platform.performer();
+    platform.saver();
     platform.deleter();
 
     return 0;

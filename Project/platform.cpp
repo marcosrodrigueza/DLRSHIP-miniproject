@@ -8,8 +8,32 @@ Platform::Platform(Date ad)
 }
 void Platform::initialize() //Load values from the files into the programs
 {  
+    ifstream loader;
+    string ids = "non-sense";
+    //
+    loader.open("owners.txt",ios::in);
+    if(loader.is_open()) //we check that the file is open. In our case not open means first use of the program
+    {
+        while(!loader.eof()) //Till the end
+        {
+            getline(loader, ids, '\n'); //delimiter of new line for security
 
+            if (ids.size() == 10) //We only check lenght, not needed syntax
+            {
+                vect_owner.push_back(new Alien(ids)); //we create an alien
+            }
 
+            else if(ids.size() == 9) //The same, only lenght
+            {
+                vect_owner.push_back(new Human(ids)); //we create an human
+            }
+        }
+
+         loader.close();
+         cout <<  "\033[2J\033[1;1H";
+    }
+
+    else cout << "<<Error loading the data, please close the program and reopen it again>>" << endl;
 }
 
 void Platform::displayMenu()
@@ -581,6 +605,20 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
     }
 
     while (close != 'y');
+}
+
+void Platform::saver()
+{
+    ofstream saver;
+    saver.open("owners.txt");
+    if(saver.is_open())
+    {
+        for(vector<Owners*>::iterator i = vect_owner.begin(); i != vect_owner.end();i++)
+        {
+            saver << (*i)->getId() << endl;
+        }
+        saver.close();
+    }
 }
 
 void Platform::deleter()

@@ -2,6 +2,7 @@
 #define PLATFORM_H
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include "date.h"
 #include "owners.h"
 #include "alien.h"
@@ -46,6 +47,7 @@ public:
     void showSales();
     void showSales(Date d);
     void performer();
+    void saver();
     void deleter();
 };
 

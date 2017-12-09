@@ -42,6 +42,10 @@ public:
                          //Maybe its not needed when exceptions are explained
     void editorOwn();
     void deleteOwn();
+    void destroyerCreator(int &crew, float &price, string &registration, string &owner); //This and the following 4 are used in SpacaCraftCreator()
+    void fighterCreator(int &crew, float &price, string &registration, string &owner);
+    void scCreator(int &crew, float &price, string &registration, string &owner);
+    void ssCreator(int &crew, float &price, string &registration, string &owner);
     void spaceCraftCreator();
     void showOwners();
     void showSpacesAvailible();

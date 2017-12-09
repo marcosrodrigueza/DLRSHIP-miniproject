@@ -284,148 +284,170 @@ void Platform::deleteOwn()
     }
 }
 
+void Platform::destroyerCreator(int &crew, float &price, string &registration, string &owner) //used in SpacaCraftCreator()
+{
+    unsigned int num_weapons = 0;
+    vector<char> weapons;
+    char type_weapon = '\0';
+    //
+    cout << "how many weapons does it have?: ";
+    cin >> num_weapons; //we ask for the lenght
+    cout << endl << "//////////////////////////////" ;
+    cout << endl << " Types are:" << endl << " 1. Plasma Cannon" << endl << " 2. Thermonuclear missiles" << endl;
+    cout << " 3. Laser beams" << endl << " 4. PEM" << endl << "//////////////////////////////" << endl;
+
+    for(unsigned int i = 0; i < num_weapons; i++) //loop with the num of weapons specified
+    {
+        cout << "weapon " << i+1 << ": ";
+        cin >> type_weapon;
+
+        weapons.push_back(type_weapon);
+    }
+
+    vect_space.push_back(new  Destroyer(crew,price,registration,owner,weapons));
+    cout << "---Destroyer Created---" << endl;
+
+}
+
+void Platform::fighterCreator(int &crew, float &price, string &registration, string &owner)
+{
+    unsigned int num_weapons = 0;
+    unsigned int speedTop = 0;
+    vector<char> weapons;
+    char type_weapon = '\0';
+    //
+    cout << "What is its maximum speed? (in light-years): ";
+    cin >> speedTop;
+    cout << "how many weapons does it have?: ";
+    cin >> num_weapons;
+    cout << endl << "//////////////////////////////" ;
+    cout << endl << " Types are:" << endl << " 1. Plasma Cannon" << endl << " 2. Thermonuclear missiles" << endl;
+    cout << "//////////////////////////////" << endl;
+
+    for(unsigned int i = 0; i < num_weapons; i++) //loop with the num of weapons specified
+    {
+        cout << "weapon " << i+1 << ": ";
+        cin >> type_weapon;
+
+        weapons.push_back(type_weapon); //loads the vector
+    }
+
+    vect_space.push_back(new Fighter(speedTop,crew,price,registration,owner,weapons));
+    cout << "---Fighter Created---" << endl;
+
+}
+
+void Platform::scCreator(int &crew, float &price, string &registration, string &owner)
+{
+    unsigned int maxLoad = 0;
+    unsigned int speedCruise = 0;
+    bool eShield = false;
+    //
+    cout << "Maximum Load(in tons): ";
+    cin >> maxLoad;
+    cout << "Does it have Energy Shield(yes = 1/ no = 0): ";
+    cin >> eShield;
+    cout << "What is its cruise speed?(in light-years): ";
+    cin >> speedCruise;
+
+    vect_space.push_back(new SpaceCarrier(maxLoad,eShield,speedCruise,crew,price,registration,owner));
+    cout << "---Carrier Created---" << endl;
+}
+
+void Platform::ssCreator(int &crew, float &price, string &registration, string &owner)
+{
+    unsigned int hangars = 0;
+    unsigned int eShield = false;
+    unsigned int passengers = 0;
+    //
+    cout << "Number of hangars: ";
+    cin >> hangars;
+    cout << "Does it have Energy Shield(yes = 1/ no = 0): ";
+    cin >> eShield;
+    cout << "Maximum of passangers: ";
+    cin >> passengers;
+
+    vect_space.push_back(new SpaceStation(hangars,passengers,eShield,crew,price,registration,owner));
+    cout << "---Carrier Created---" << endl;
+}
+
 void Platform::spaceCraftCreator()
 {
-    string registration = "non-sense";
+    vector<Owners*>::iterator it;
+    string reg = "non-sense";
     unsigned int type = 0;
+    string own = "non-sense";
     bool valid = false;
-    string owner = "non-sense";
-    bool alien = false;
-    bool human = false;
-    unsigned int crew = 0;
-    float price = 0.0;
-
+    bool found = false;
+    int c = 0;
+    float p = 0.0;
     //
-    do
-    {
-        cout << "Introduce the registration number in the format 'LNNNNLLL' " << endl;
-        cout << "(L capital leter,N natural nº): ";
-        cin >> registration;
-        valid = this->checkRegNum(registration);
-    }
-    while(valid != true);
-    valid = false;
-    do //Here we only check the format, later we will check if the owner exists
-    {
-        cout << "Introduce its Owner id (nif/nie): ";
-        cin >> owner;
-        alien = this->checkNie(owner);
-        human = this->checkNif(owner);
+    cout << "Introduce its Owner id (nif/nie): ";
+    cin >> own;
 
-        if(alien == true && human == false) //alien detected
+    this->searchOwner(own, it, found);
+
+    if(found == false)
+        cout << "The owner is not registered or you may have written bad the id" << endl;
+    else
+    {
+        do
         {
-          cout << "----Alien detected----" << endl;
-          valid = true;
+            cout << "Introduce the registration number in the format 'LNNNNLLL' " << endl;
+            cout << "(L capital leter,N natural nº): ";
+            cin >> reg;
+            valid = this->checkRegNum(reg);
         }
-        else if(alien == false && human == true) //human detected
+        while(valid != true);
+
+        cout << "Enter the maximum crew number: ";
+        cin >> c;
+        cout << "Enter the selling price in Units: ";
+        cin >> p;
+        cout <<  "\033[2J\033[1;1H"; //clear screen
+
+        do
         {
-          cout << "----Human detected----" << endl;
-          valid = true;
-        }
-        else { cout << "Not valid format" << endl;}
-    }
-    while(valid != true);
-
-    cout << "Enter the maximum crew number: ";
-    cin >> crew;
-    cout << "Enter the selling price in Units: ";
-    cin >> price;
-    cout <<  "\033[2J\033[1;1H"; //clear screen
-    do
-    {
-        cout << "Please, choose its specific type:" << endl << "-1.Destroyer" << endl << "-2. Fighter" << endl;
-        cout << "-3. SpaceCarrier" << endl << "4.-SpaceStation" << endl << "Type: ";
-        cin >> type;
-
-        if(type == 1) //means Destroyer selected
-        {
-            unsigned int num_weapons = 0;
-            vector<char> weapons;
-            char type_weapon = '\0';
-            //
-            cout << "how many weapons does it have?: ";
-            cin >> num_weapons; //we ask for the lenght
-            cout << endl << "//////////////////////////////" ;
-            cout << endl << " Types are:" << endl << " 1. Plasma Cannon" << endl << " 2. Thermonuclear missiles" << endl;
-            cout << " 3. Laser beams" << endl << " 4. PEM" << endl << "//////////////////////////////" << endl;
-
-            for(unsigned int i = 0; i < num_weapons; i++) //loop with the num of weapons specified
+            if(own.size() == 9) //if hte size of the string of the founder is human type (we have checked that exists)
             {
-                cout << "weapon " << i+1 << ": ";
-                cin >> type_weapon;
-
-                weapons.push_back(type_weapon);
+                cout << "Please, choose its specific type:" << endl  << "-1. Fighter" << endl;
+                cout << "-2. SpaceCarrier" << endl << "3.-SpaceStation" << endl << "Type: ";
+                cin >> type;
+            }
+            else if(own.size() == 10) //size of a nie
+            {
+                cout << "Please, choose its specific type:" << endl  << "-1. Fighter" << endl;
+                cout << "-2. SpaceCarrier" << endl << "3.-Destroyer" << endl << "Type: ";
+                cin >> type;
+                type += 3;
             }
 
-            vect_space.push_back(new  Destroyer(crew,price,registration,owner,weapons));
-            cout << "---Destroyer Created---" << endl;
-        }
-        else if(type == 2)
-        {
-            unsigned int num_weapons = 0;
-            unsigned int speedTop = 0;
-            vector<char> weapons;
-            char type_weapon = '\0';
-            //
-            cout << "What is its maximum speed? (in light-years): ";
-            cin >> speedTop;
-            cout << "how many weapons does it have?: ";
-            cin >> num_weapons;
-            cout << endl << "//////////////////////////////" ;
-            cout << endl << " Types are:" << endl << " 1. Plasma Cannon" << endl << " 2. Thermonuclear missiles" << endl;
-            cout << "//////////////////////////////" << endl;
-
-            for(unsigned int i = 0; i < num_weapons; i++) //loop with the num of weapons specified
+            if(type == 1 || type == 4) //means Fighter selected
             {
-                cout << "weapon " << i+1 << ": ";
-                cin >> type_weapon;
-
-                weapons.push_back(type_weapon); //loads the vector
+                this->fighterCreator(c,p,reg,own);
+            }
+            else if(type == 2 || type == 5) //means Space Carrier
+            {
+                this->scCreator(c,p,reg,own);
+            }
+            else if(type == 3) //means Space Station
+            {
+                this->ssCreator(c,p,reg,own);
+            }
+            else if(type == 6) //means destroyer
+            {
+                this->destroyerCreator(c,p,reg,own);
+            }
+            else
+            {
+                cout << "Ilegal option" << endl;
+                valid = false; //if we obtain a false we toggle to false and not allow
             }
 
-            vect_space.push_back(new Fighter(speedTop,crew,price,registration,owner,weapons));
-            cout << "---Fighter Created---" << endl;
-        }
-        else if(type == 3)
-        {
-            unsigned int maxLoad = 0;
-            unsigned int speedCruise = 0;
-            bool eShield = false;
-            //
-            cout << "Maximum Load(in tons): ";
-            cin >> maxLoad;
-            cout << "Does it have Energy Shield(yes = 1/ no = 0): ";
-            cin >> eShield;
-            cout << "What is its cruise speed?(in light-years): ";
-            cin >> speedCruise;
+        } while(valid != true);
 
-            vect_space.push_back(new SpaceCarrier(maxLoad,eShield,speedCruise,crew,price,registration,owner));
-            cout << "---Carrier Created---" << endl;
+    }
 
-        }
-        else if(type == 4)
-        {
-            unsigned int hangars = 0;
-            unsigned int eShield = false;
-            unsigned int passengers = 0;
-            //
-            cout << "Number of hangars: ";
-            cin >> hangars;
-            cout << "Does it have Energy Shield(yes = 1/ no = 0): ";
-            cin >> eShield;
-            cout << "Maximum of passangers: ";
-            cin >> passengers;
-
-            vect_space.push_back(new SpaceStation(hangars,passengers,eShield,crew,price,registration,owner));
-            cout << "---Carrier Created---" << endl;
-
-        }
-        else
-        {
-            cout << "Ilegal option" << endl;
-            valid = false;
-        }
-    } while(valid != true);
 }
 
 void Platform::spaceCraftSearch(const string &registration, vector<SpaceCraft*>::iterator &iterator, bool &found)

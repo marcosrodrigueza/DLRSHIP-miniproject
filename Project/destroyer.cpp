@@ -37,6 +37,7 @@ void Destroyer::show()
     cout << " Laser Beams: " << ty_3 << endl;
     cout << " PEM's: " << ty_4 << endl << endl;
 }
+
 void Destroyer::showTypes()
 {
     cout << endl << "------------------------------------" ;
@@ -112,9 +113,3 @@ Destroyer::~Destroyer()
     cout <<"-Destroyer succesfully eliminated-" << endl;
 }
 
-//Need to implement types through lists
-/*string Destroyer::getReg()
-{
-    return regNum;
-}
-*/

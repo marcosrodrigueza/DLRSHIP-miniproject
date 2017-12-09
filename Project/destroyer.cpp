@@ -129,6 +129,7 @@ void Destroyer::saveCraft(ofstream &output)
     }
 
     output << endl;
+    output << "," << endl;
 }
 
 Destroyer::~Destroyer()

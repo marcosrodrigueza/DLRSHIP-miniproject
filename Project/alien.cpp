@@ -1,6 +1,6 @@
 #include "alien.h"
 
-Alien::Alien(string n)
+Alien::Alien(string n, string planet_or): Owners(planet_or)
 {
     nie = n;
     cout << "Alien created succesfully" << endl;
@@ -19,6 +19,7 @@ void Alien::show()
 {
     cout << "-------------------------------------" << endl;
     cout << "nie:" << nie << endl;
+    cout << "Planet: " << planet << endl;
 }
 
 bool Alien::checkId(const string &n)const

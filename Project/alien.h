@@ -12,7 +12,7 @@ class Alien : public Owners
 
 public:
 
-    Alien(string n);
+    Alien(string n, string planet_or);
     void editId(const string id);
     string getId();
     void show();

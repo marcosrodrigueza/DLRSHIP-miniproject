@@ -12,7 +12,7 @@ class Human : public Owners
 
 public:
 
-    Human(string n);
+    Human(string n, string planet_or);
     void editId(const string id);
     string getId();
     void show();

@@ -116,6 +116,7 @@ void Platform::initialize() //Load values from the files into the programs
     ifstream loader;
     ifstream sec_loader;
     string ids = "non-sense";
+    string porigin = "non-sense";
     //
     Date date_reg;
     string d = "non-sense";
@@ -132,16 +133,17 @@ void Platform::initialize() //Load values from the files into the programs
     {
         while(!loader.eof()) //Till the end
         {
-            getline(loader, ids, '\n'); //delimiter of new line for security
+            getline(loader, ids, ','); //delimiter of new line for security
+            getline(loader, porigin, '\n');
 
             if (ids.size() == 10) //We only check lenght, not needed syntax
             {
-                vect_owner.push_back(new Alien(ids)); //we create an alien
+                vect_owner.push_back(new Alien(ids, porigin)); //we create an alien
             }
 
             else if(ids.size() == 9) //The same, only lenght
             {
-                vect_owner.push_back(new Human(ids)); //we create an human
+                vect_owner.push_back(new Human(ids, porigin)); //we create an human
             }
         }
 
@@ -344,6 +346,7 @@ void Platform::ownerCreator()
     if( owner_ty == 'A') //Alien chosen
     {
         string nie = "non-sense"; // the value by default
+        string planet = "non-sense";
 
         do
         {
@@ -353,11 +356,15 @@ void Platform::ownerCreator()
                                           //We may introduce a message for try again
         }
         while (correct == false);
-        vect_owner.push_back(new Alien(nie));//if OK then we create the object
+        cout << "Introduce the planet of origin: ";
+        cin >> planet;
+
+        vect_owner.push_back(new Alien(nie, planet));//if OK then we create the object
     }
     else if (owner_ty == 'h') //Human chosen
     {
         string nif = "non-sense";
+        string planet = "non-sense";
 
         do
         {
@@ -368,7 +375,9 @@ void Platform::ownerCreator()
         }                                  //We may introduce a message for try again
 
         while (correct == false);
-        vect_owner.push_back(new Human(nif));//if OK then we create the object
+        cout << "Introduce the planet of origin: ";
+        cin >> planet;
+        vect_owner.push_back(new Human(nif, planet));//if OK then we create the object
 
     }
     else
@@ -832,7 +841,8 @@ void Platform::saver()
     {
         for(vector<Owners*>::iterator i = vect_owner.begin(); i != vect_owner.end();i++)
         {
-            saver << (*i)->getId() << endl;
+            saver << (*i)->getId() << ',';
+            saver << (*i)->getPlanet() << endl;
         }
         saver.close();
     }

@@ -1,8 +1,9 @@
 #include "human.h"
 
-Human::Human(string n)
+Human::Human(string n, string planet_or): Owners(planet_or)
 {
     nif = n;
+
     cout << "Human Created succesfully" << endl;
 
 }
@@ -19,6 +20,7 @@ void Human::show()
 {
     cout << "-------------------------------------" << endl;
     cout << "nif:" << nif << endl;
+    cout << "Planet: " << planet << endl;
 }
 
 bool Human::checkId(const string &n)const

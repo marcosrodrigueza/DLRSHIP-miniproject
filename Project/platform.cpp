@@ -16,100 +16,6 @@ bool Platform::strToBool(const string str) //if garbage input we give a zero (oc
 
     return result;
 }
-float Platform::stof(const string str)
-{
-    float result = 10.5;
-    return result;
-}
-
-int Platform::stoi(const string str)
-{
-    int result = 100;
-    return result;
-}
-
-/*void Platform::loadCrafts(ifstream &sec_loader)
-{
-    string el_1 = "non-sense"; //First row - RegNum
-    string el_2 = "non-sense"; //Second row and so - owner
-    string el_3 = "non-sense"; // crew_máx
-    string el_4 = "non-sense"; //price
-    string el_5 = "non-sense"; //av for sale
-    string el_6 = "non-sense"; //here is encoded the value that determines the type of ship
-    string el_7 = "non-sense"; //nw/máx_load/num/hangars
-    string el_8 = "non-sense"; // vect-Weapons/cSpeed/max_passangers
-    string el_9 = "non-sense"; // none/eShield
-    int crew_m = 0;
-    float pri = 0;
-    bool a_sale = false;
-    int nw_loa_nhang = 0;
-    int cspeed_max_pass = 0;
-    int max_s = 0;
-    bool eShd = false;
-    vector<char> vect_w;
-    //
-    getline(sec_loader, el_1, '\n');
-    getline(sec_loader, el_2, '\n');
-    getline(sec_loader, el_3, '\n');
-    getline(sec_loader, el_4, '\n');
-    getline(sec_loader, el_5, '\n');
-    getline(sec_loader, el_6, '\n');
-    getline(sec_loader, el_7, '\n');
-    getline(sec_loader, el_8, '\n');
-    getline(sec_loader, el_9, '\n');
-
-    //we obtain the 9 lines- now we adress them
-
-    crew_m = this->stoi(el_3); //convert string to int
-    pri = this->stof(el_4); //string to float
-
-    a_sale = this->strToBool(el_5);
-
-    // we have obtained base parameters
-
-    if(el_6 == "-") //destroyer type
-    {
-        nw_loa_nhang = stoi(el_7);
-
-        for(int i = 0; i < nw_loa_nhang; i++)
-        {
-            vect_w.push_back(el_8[i]);
-        }
-        //element 9 is negligible
-        vect_space.push_back(new Destroyer(crew_m, pri, el_1, el_2,vect_w)); //Destroyer constructor
-        vect_w.clear(); // clear the vector for the future
-    }
-    else if(el_6 == "@") // Space Station
-    {
-        nw_loa_nhang = stoi(el_7);
-        cspeed_max_pass = stoi(el_8);
-        eShd = this->strToBool(el_9);
-
-        vect_space.push_back(new SpaceStation(nw_loa_nhang, cspeed_max_pass, eShd, crew_m, pri, el_1, el_2));
-    }
-    else if(el_6 == "#") //Space Carrier - do the same but call other constructor
-    {
-        nw_loa_nhang = stoi(el_7);
-        cspeed_max_pass = stoi(el_8);
-        eShd = this->strToBool(el_9);
-
-        vect_space.push_back(new SpaceCarrier(nw_loa_nhang, cspeed_max_pass, eShd, crew_m, pri, el_1, el_2));
-    }
-    else if(el_6 == "%")//is a fighter
-    {
-        nw_loa_nhang = stoi(el_7);
-
-        for(int i = 0; i < nw_loa_nhang; i++)
-        {
-            vect_w.push_back(el_8[i]);
-        }
-
-        max_s = stoi(el_9);
-        vect_space.push_back(new Fighter(max_s,crew_m, pri, el_1, el_2, vect_w));
-        vect_w.clear();
-    }
-
-}*/
 
 void Platform::loadCrafts()
 {
@@ -161,7 +67,7 @@ void Platform::loadCrafts()
            {
                w.push_back(wea[i]);
            }
-           vect_space.push_back(new Destroyer(atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale),w));
+           vect_space.push_back(new Destroyer(atoi(crew_max.c_str()),strof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale),w));
            w.clear();
            break;
         }
@@ -175,7 +81,7 @@ void Platform::loadCrafts()
             {
                 w.push_back(wea[i]);
             }
-            vect_space.push_back(new Fighter(atoi(es.c_str()),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale),w));
+            vect_space.push_back(new Fighter(atoi(es.c_str()),atoi(crew_max.c_str()),strof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale),w));
             w.clear();
             break;
         }
@@ -185,7 +91,7 @@ void Platform::loadCrafts()
             getline(load_crafts, mp, ',');
             getline(load_crafts, es, '\n');
 
-            vect_space.push_back(new SpaceStation(atoi(nh.c_str()),atoi(mp.c_str()),this->strToBool(es),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale)));
+            vect_space.push_back(new SpaceStation(atoi(nh.c_str()),atoi(mp.c_str()),this->strToBool(es),atoi(crew_max.c_str()),strof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale)));
             break;
         }
         case '#':
@@ -194,7 +100,7 @@ void Platform::loadCrafts()
             getline(load_crafts, cs, ',');
             getline(load_crafts, es, '\n');
 
-            vect_space.push_back(new SpaceCarrier(atoi(ml.c_str()),atoi(cs.c_str()),this->strToBool(es),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale)));
+            vect_space.push_back(new SpaceCarrier(atoi(ml.c_str()),atoi(cs.c_str()),this->strToBool(es),atoi(crew_max.c_str()),strof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale)));
             break;
         }
 
@@ -249,19 +155,6 @@ void Platform::initialize() //Load values from the files into the programs
         cout << "<<Error loading the data, please close the program and reopen it again>>" << endl;
     }
 
-    /*loader.open("ships.txt", ios::in);
-
-    if (loader.is_open())
-    {
-        while(!loader.eof())
-        {
-            this->loadCrafts(loader);
-        }
-
-        loader.close();
-    }
-    else
-        cout << "<<Error loading the data, please close the program and reopen it again>>" << endl;*/
 //we start with sales
     this->loadCrafts();
 

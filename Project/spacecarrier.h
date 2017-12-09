@@ -17,7 +17,9 @@ public:
     void show();
    // string getReg();
     void editSpacecraft();
+    void saveCraft(ofstream &output);
     ~SpaceCarrier();
+
 };
 
 #endif // SPACECARRIER_H

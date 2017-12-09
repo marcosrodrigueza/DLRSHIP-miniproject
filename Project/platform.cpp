@@ -22,7 +22,7 @@ void Platform::initialize() //Load values from the files into the programs
     ifstream loader;
     string ids = "non-sense";
     //
-    string el_1 = "non-sense"; //First row - RegNum
+    /*string el_1 = "non-sense"; //First row - RegNum
     string el_2 = "non-sense"; //Second row and so - owner
     string el_3 = "non-sense"; // crew_máx
     string el_4 = "non-sense"; //price
@@ -38,7 +38,7 @@ void Platform::initialize() //Load values from the files into the programs
     int cspeed_max_pass = 0;
     int max_s = 0;
     bool eShd = false;
-    vector<char> vect_w;
+    vector<char> vect_w;*/
 
     //
 
@@ -66,7 +66,7 @@ void Platform::initialize() //Load values from the files into the programs
 
     else cout << "<<Error loading the data, please close the program and reopen it again>>" << endl;
 
-    loader.open("ships.txt", ios::in);
+    /*loader.open("ships.txt", ios::in);
 
     if (loader.is_open())
     {
@@ -136,7 +136,7 @@ void Platform::initialize() //Load values from the files into the programs
         //here we are out of the while
         loader.close();
         //cout <<  "\033[2J\033[1;1H";
-    }
+    }*/
 }
 
 void Platform::displayMenu()
@@ -459,7 +459,7 @@ void Platform::scCreator(int &crew, float &price, string &registration, string &
     cout << "What is its cruise speed?(in light-years): ";
     cin >> speedCruise;
 
-    vect_space.push_back(new SpaceCarrier(maxLoad,eShield,speedCruise,crew,price,registration,owner));
+    vect_space.push_back(new SpaceCarrier(maxLoad,speedCruise, eShield,crew,price,registration,owner));
     cout << "---Carrier Created---" << endl;
 }
 
@@ -779,6 +779,18 @@ void Platform::saver()
         }
         saver.close();
     }
+    //Done with owners
+    saver.open("spaces.txt");
+
+    if(saver.is_open())
+    {
+        for(vector<SpaceCraft*>::iterator i = vect_space.begin(); i != vect_space.end();i++)
+        {
+            (*i)->saveCraft(saver);
+        }
+        saver.close();
+    }
+    //Done with Spaceships
 }
 
 void Platform::deleter()

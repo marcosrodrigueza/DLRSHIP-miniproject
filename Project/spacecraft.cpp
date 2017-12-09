@@ -93,6 +93,11 @@ void SpaceCraft::editSpacecraft()
 {
     //void editSpacecraft()
 }
+void SpaceCraft::saveCraft(ofstream &output)
+{
+    //nothing to be added
+}
+
 SpaceCraft::~SpaceCraft()
 {
     //

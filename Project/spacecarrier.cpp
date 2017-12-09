@@ -36,9 +36,24 @@ void SpaceCarrier::editSpacecraft()
     cout << "Cruise Speed: ";
     cin >> new_cspeed;
     if(new_cspeed != 0)
-        maxLoad = new_cspeed;
+        cSpeed = new_cspeed;
 
     cout << "----Changes done----" << endl;
+}
+
+void SpaceCarrier::saveCraft(ofstream &output)
+{
+    string code = "#";
+    //
+    output << regNum << endl;
+    output << owner << endl;
+    output << crewMax << endl;
+    output << price << endl;
+    output << av_sale << endl;
+    output << code << endl;
+    output << maxLoad << endl;
+    output << cSpeed << endl;
+    output << eShield << endl;
 }
 
 SpaceCarrier::~SpaceCarrier()

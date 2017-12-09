@@ -106,8 +106,33 @@ void Fighter::editSpacecraft()
         }
     }
 
+    num_weapons = fighter_weapons.size();
+
     cout << "----Changes done----" << endl;
 }
+
+void Fighter::saveCraft(ofstream &output)
+{
+    string code = "%";
+    //
+    output << regNum << endl;
+    output << owner << endl;
+    output << crewMax << endl;
+    output << price << endl;
+    output << av_sale << endl;
+    output << code << endl;
+    output << num_weapons << endl;
+
+    for (vector<char>::iterator i = fighter_weapons.begin(); i != fighter_weapons.end(); i++)
+    {
+        output << (*i);
+    }
+
+    output << endl;
+    output << maxSpeed << endl;
+
+}
+
 Fighter::~Fighter()
 {
     cout <<"-Fighter succesfully eliminated-" << endl;

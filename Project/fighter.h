@@ -21,6 +21,7 @@ public:
     void showTypes();
     //string getReg();
     void editSpacecraft();
+    void saveCraft(ofstream &output);
     ~Fighter();
 };
 

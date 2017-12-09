@@ -20,6 +20,7 @@ public:
     void show();
     void showTypes();
     void editSpacecraft();
+    void saveCraft(ofstream &output);
     ~Destroyer();
 };
 

@@ -41,6 +41,22 @@ void SpaceStation::editSpacecraft()
 
     cout << "----Changes done----" << endl;
 }
+
+void SpaceStation::saveCraft(ofstream &output)
+{
+    string code = "@";
+    //
+    output << regNum << endl;
+    output << owner << endl;
+    output << crewMax << endl;
+    output << price << endl;
+    output << av_sale << endl;
+    output << code << endl;
+    output << numHangar << endl;
+    output << maxPassenger << endl;
+    output << eShield << endl;
+}
+
 SpaceStation::~SpaceStation()
 {
     cout <<"-Space Station succesfully eliminated-" << endl;

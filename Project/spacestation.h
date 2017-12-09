@@ -17,6 +17,7 @@ public:
     void show();
     //string getReg();
     void editSpacecraft();
+    void saveCraft(ofstream &output);
     ~SpaceStation();
 };
 

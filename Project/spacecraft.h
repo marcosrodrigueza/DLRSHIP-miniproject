@@ -2,6 +2,7 @@
 #define SPACECRAFT_H
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -29,6 +30,7 @@ public:
     void setOwner(const string & newOwner);
     bool getAvailible()const;
     virtual void editSpacecraft();
+    virtual void saveCraft(ofstream &output);
     virtual ~SpaceCraft();
 };
 

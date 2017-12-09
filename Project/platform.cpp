@@ -539,7 +539,7 @@ void Platform::ssCreator(int &crew, float &price, int &propu, string &registrati
     cin >> passengers;
 
     vect_space.push_back(new SpaceStation(hangars,passengers,eShield,crew,price,propu,registration,owner,true));
-    cout << "---Carrier Created---" << endl;
+    cout << "---S.Station Created---" << endl;
 }
 
 void Platform::spaceCraftCreator()

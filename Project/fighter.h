@@ -18,6 +18,7 @@ public:
 
     Fighter(int ms,int cm, float p,/* PropTy pro,*/ string rn, string o, vector<char> w); //Constructor
     void show();
+    void showTypes();
     //string getReg();
     void editSpacecraft();
     ~Fighter();

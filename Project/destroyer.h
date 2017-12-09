@@ -18,7 +18,7 @@ public:
 
     Destroyer(int cm, float p/*, PropTy pro*/, string rn, string o, vector<char> w);
     void show();
-   // string getReg();
+    void showTypes();
     void editSpacecraft();
     ~Destroyer();
 };

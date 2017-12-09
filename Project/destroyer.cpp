@@ -28,6 +28,7 @@ void Destroyer::show()
     }
 
     cout << "-------------------------------------" << endl;
+    cout << "DESTROYER" << endl;
     cout << " Owner: " << owner << endl;
     cout << " RegNum: " << regNum << endl;
     cout << " Price: " << price << endl;

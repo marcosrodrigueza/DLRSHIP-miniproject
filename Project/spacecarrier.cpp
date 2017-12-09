@@ -12,6 +12,7 @@ SpaceCarrier::SpaceCarrier(int ml, int cs, bool es,int cn, float p, int pro, str
 void SpaceCarrier::show()
 {
     cout << "-------------------------------------" << endl;
+    cout << "SPACE CARRIER" << endl;
     cout << " Owner: " << owner << endl;
     cout << " RegNum: " << regNum << endl;
     cout << " Price: " << price << endl;

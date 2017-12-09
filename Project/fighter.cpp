@@ -22,6 +22,7 @@ void Fighter::show()
     }
 
     cout << "-------------------------------------" << endl;
+    cout << "FIGHTER" << endl;
     cout << " Owner: " << owner << endl;
     cout << " RegNum: " << regNum << endl;
     cout << " Price: " << price << endl;

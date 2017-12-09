@@ -12,6 +12,7 @@ SpaceStation::SpaceStation(int nh,int mp, bool es, int cn, float p,int pro, stri
 void SpaceStation::show()
 {
     cout << "-------------------------------------" << endl;
+    cout << "SPACE STATION" << endl;
     cout << " Owner: " << owner << endl;
     cout << " RegNum: " << regNum << endl;
     cout << " Price: " << price << endl;

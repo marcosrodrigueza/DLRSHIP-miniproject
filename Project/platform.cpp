@@ -122,16 +122,23 @@ void Platform::loadCrafts()
     string price = "non-sense";
     string prop = "non-sense";
     string a_sale = "non-sense";
-    string nw_ml_nh = "non-sense";
-    string wea_cs_mp = "non-sense";
-    string es_ms = "non-sense";
+    string nw = "non-sense";
+    string ml = "non-sense";
+    string nh = "non-sense";
+    string wea = "non-sense";
+    string cs = "non-sense";
+    string mp = "non-sense";
+    string es = "non-sense";
+    string ms = "non-sense";
     vector<char> w;
     //
 
     load_crafts.open("spaces.txt", ios::in);
 
     if(!load_crafts)
+    {
         cout << "Error_loading" << endl;
+    }
 
     while(!load_crafts.eof())
     {
@@ -143,54 +150,58 @@ void Platform::loadCrafts()
         getline(load_crafts, prop, ',');
         getline(load_crafts, a_sale, ',');
 
-        switch(code[1])
+        switch(code[0])
         {
         case '-':
         {
-           getline(load_crafts, nw_ml_nh, ',');
-           getline(load_crafts, wea_cs_mp, '\n');
+           getline(load_crafts, nw, ',');
+           getline(load_crafts, wea, '\n');
 
-           for(int i = 0; i < atoi(nw_ml_nh.c_str()); i++)
+           for(int i = 0; i < atoi(nw.c_str()); i++)
            {
-               w.push_back(wea_cs_mp[i]);
+               w.push_back(wea[i]);
            }
            vect_space.push_back(new Destroyer(atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale),w));
+           w.clear();
            break;
         }
         case '%':
         {
-            getline(load_crafts, nw_ml_nh, ',');
-            getline(load_crafts, wea_cs_mp, ',');
-            getline(load_crafts, es_ms, '\n');
+            getline(load_crafts, nw, ',');
+            getline(load_crafts, wea, ',');
+            getline(load_crafts, ms, '\n');
 
-            for(int i = 0; i < atoi(nw_ml_nh.c_str()); i++)
+            for(int i = 0; i < atoi(nw.c_str()); i++)
             {
-                w.push_back(wea_cs_mp[i]);
+                w.push_back(wea[i]);
             }
-            vect_space.push_back(new Fighter(atoi(es_ms.c_str()),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale),w));
+            vect_space.push_back(new Fighter(atoi(es.c_str()),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale),w));
+            w.clear();
+            break;
         }
         case '@':
         {
-            getline(load_crafts, nw_ml_nh, ',');
-            getline(load_crafts, wea_cs_mp, ',');
-            getline(load_crafts, es_ms, '\n');
+            getline(load_crafts, nh, ',');
+            getline(load_crafts, mp, ',');
+            getline(load_crafts, es, '\n');
 
-            vect_space.push_back(new SpaceStation(atoi(nw_ml_nh.c_str()),atoi(wea_cs_mp.c_str()),this->strToBool(es_ms),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale)));
+            vect_space.push_back(new SpaceStation(atoi(nh.c_str()),atoi(mp.c_str()),this->strToBool(es),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale)));
+            break;
         }
         case '#':
         {
-            getline(load_crafts, nw_ml_nh, ',');
-            getline(load_crafts, wea_cs_mp, ',');
-            getline(load_crafts, es_ms, '\n');
+            getline(load_crafts, ml, ',');
+            getline(load_crafts, cs, ',');
+            getline(load_crafts, es, '\n');
 
-            vect_space.push_back(new SpaceCarrier(atoi(nw_ml_nh.c_str()),atoi(wea_cs_mp.c_str()),this->strToBool(es_ms),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale)));
-
+            vect_space.push_back(new SpaceCarrier(atoi(ml.c_str()),atoi(cs.c_str()),this->strToBool(es),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale)));
+            break;
         }
 
         }//end of swich
 
-        load_crafts.close();
     }
+    load_crafts.close();
 }
 
 void Platform::initialize() //Load values from the files into the programs

@@ -80,7 +80,7 @@ void SpaceStation::saveCraft(ofstream &output)
     output << av_sale << ',';
     output << numHangar << ',';
     output << maxPassenger << ',';
-    output << eShield << ',';
+    output << eShield << endl;
 }
 
 SpaceStation::~SpaceStation()

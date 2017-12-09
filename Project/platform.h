@@ -33,7 +33,7 @@ public:
     bool strToBool(const string str);
     float stof(const string str);
     int stoi(const string str);
-    //void loadCrafts(ifstream &sec_loader);
+    void loadCrafts();
     void initialize();
     void displayMenu();
     bool checkNie(const string &n)const;

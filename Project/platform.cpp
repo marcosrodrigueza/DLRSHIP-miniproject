@@ -111,6 +111,88 @@ int Platform::stoi(const string str)
 
 }*/
 
+void Platform::loadCrafts()
+{
+    ifstream load_crafts;
+
+    string code = "non-sense";
+    string reg = "non-sense";
+    string id = "non-sense";
+    string crew_max = "non-sense";
+    string price = "non-sense";
+    string prop = "non-sense";
+    string a_sale = "non-sense";
+    string nw_ml_nh = "non-sense";
+    string wea_cs_mp = "non-sense";
+    string es_ms = "non-sense";
+    vector<char> w;
+    //
+
+    load_crafts.open("spaces.txt", ios::in);
+
+    if(!load_crafts)
+        cout << "Error_loading" << endl;
+
+    while(!load_crafts.eof())
+    {
+        getline(load_crafts, code, ',');
+        getline(load_crafts, reg, ',');
+        getline(load_crafts, id, ',');
+        getline(load_crafts, crew_max, ',');
+        getline(load_crafts, price, ',');
+        getline(load_crafts, prop, ',');
+        getline(load_crafts, a_sale, ',');
+
+        switch(code[1])
+        {
+        case '-':
+        {
+           getline(load_crafts, nw_ml_nh, ',');
+           getline(load_crafts, wea_cs_mp, '\n');
+
+           for(int i = 0; i < atoi(nw_ml_nh.c_str()); i++)
+           {
+               w.push_back(wea_cs_mp[i]);
+           }
+           vect_space.push_back(new Destroyer(atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale),w));
+           break;
+        }
+        case '%':
+        {
+            getline(load_crafts, nw_ml_nh, ',');
+            getline(load_crafts, wea_cs_mp, ',');
+            getline(load_crafts, es_ms, '\n');
+
+            for(int i = 0; i < atoi(nw_ml_nh.c_str()); i++)
+            {
+                w.push_back(wea_cs_mp[i]);
+            }
+            vect_space.push_back(new Fighter(atoi(es_ms.c_str()),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale),w));
+        }
+        case '@':
+        {
+            getline(load_crafts, nw_ml_nh, ',');
+            getline(load_crafts, wea_cs_mp, ',');
+            getline(load_crafts, es_ms, '\n');
+
+            vect_space.push_back(new SpaceStation(atoi(nw_ml_nh.c_str()),atoi(wea_cs_mp.c_str()),this->strToBool(es_ms),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale)));
+        }
+        case '#':
+        {
+            getline(load_crafts, nw_ml_nh, ',');
+            getline(load_crafts, wea_cs_mp, ',');
+            getline(load_crafts, es_ms, '\n');
+
+            vect_space.push_back(new SpaceCarrier(atoi(nw_ml_nh.c_str()),atoi(wea_cs_mp.c_str()),this->strToBool(es_ms),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale)));
+
+        }
+
+        }//end of swich
+
+        load_crafts.close();
+    }
+}
+
 void Platform::initialize() //Load values from the files into the programs
 {  
     ifstream loader;
@@ -170,6 +252,7 @@ void Platform::initialize() //Load values from the files into the programs
     else
         cout << "<<Error loading the data, please close the program and reopen it again>>" << endl;*/
 //we start with sales
+    this->loadCrafts();
 
     loader.open("sales.txt", ios::in);
     if(loader.is_open())
@@ -214,7 +297,7 @@ void Platform::displayMenu()
     cout << "   7. Show owners registered. " <<endl;
     cout << "   8. Show Space Ships for sale" << endl;
     cout << "   9. Show the record of sales"  << endl;
-    cout << "   <<< Press 'x' to save and exit >>" << endl << endl;
+    cout << "   <<< Press 'x' to save and exit >>>" << endl << endl;
     cout << "   Option : " ;
 }
 
@@ -833,6 +916,8 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
 
             break;
         }
+        case 'x':
+            break;
 
         default:
 
@@ -900,4 +985,6 @@ void Platform::deleter()
     {
         delete *free_Spaces;
     }
+
+    cout << "\033[2J\033[1;1H";
 }

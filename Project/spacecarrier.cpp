@@ -69,14 +69,15 @@ void SpaceCarrier::saveCraft(ofstream &output)
 {
     string code = "#";
     //
-    output << regNum << endl;
-    output << owner << endl;
-    output << crewMax << endl;
-    output << price << endl;
-    output << av_sale << endl;
-    output << code << endl;
-    output << maxLoad << endl;
-    output << cSpeed << endl;
+    output << code << ',';
+    output << regNum << ',';
+    output << owner << ',';
+    output << crewMax << ',';
+    output << price << ',';
+    output << propulsion << ',';
+    output << av_sale << ',';
+    output << maxLoad << ',';
+    output << cSpeed << ',';
     output << eShield << endl;
 }
 

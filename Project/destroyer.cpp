@@ -140,13 +140,14 @@ void Destroyer::saveCraft(ofstream &output)
 {
     string code = "-";
     //
-    output << regNum << endl;
-    output << owner << endl;
-    output << crewMax << endl;
-    output << price << endl;
-    output << av_sale << endl;
-    output << code << endl;
-    output << num_weapons << endl;
+    output << code << ',';
+    output << regNum << ',';
+    output << owner << ',';
+    output << crewMax << ',';
+    output << price << ',';
+    output << propulsion << ',';
+    output << av_sale << ',';
+    output << num_weapons << ',';
 
     for (vector<char>::iterator i = destroyer_weapons.begin(); i != destroyer_weapons.end(); i++)
     {
@@ -154,7 +155,6 @@ void Destroyer::saveCraft(ofstream &output)
     }
 
     output << endl;
-    output << "," << endl;
 }
 
 Destroyer::~Destroyer()

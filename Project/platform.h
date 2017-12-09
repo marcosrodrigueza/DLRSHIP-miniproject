@@ -2,7 +2,7 @@
 #define PLATFORM_H
 #include <iostream>
 #include <vector>
-#include <map>
+#include <string>
 #include <fstream>
 #include "date.h"
 #include "owners.h"
@@ -29,6 +29,7 @@ public:
     Date actualDate;
 
     Platform(Date ad);
+    bool strToBool(const string str);
     void initialize();
     void displayMenu();
     bool checkNie(const string &n)const;

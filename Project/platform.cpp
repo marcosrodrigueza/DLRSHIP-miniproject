@@ -6,11 +6,42 @@ Platform::Platform(Date ad)
 {
     actualDate = ad;
 }
+
+bool Platform::strToBool(const string str) //if garbage input we give a zero (oclude a spacecraft in the listing)
+{
+    bool result = false;
+
+    if(str == "1")
+        result = true;
+
+    return result;
+}
+
 void Platform::initialize() //Load values from the files into the programs
 {  
     ifstream loader;
     string ids = "non-sense";
     //
+    string el_1 = "non-sense"; //First row - RegNum
+    string el_2 = "non-sense"; //Second row and so - owner
+    string el_3 = "non-sense"; // crew_máx
+    string el_4 = "non-sense"; //price
+    string el_5 = "non-sense"; //av for sale
+    string el_6 = "non-sense"; //here is encoded the value that determines the type of ship
+    string el_7 = "non-sense"; //nw/máx_load/num/hangars
+    string el_8 = "non-sense"; // vect-Weapons/cSpeed/max_passangers
+    string el_9 = "non-sense"; // none/eShield
+    int crew_m = 0;
+    float pri = 0;
+    bool a_sale = false;
+    int nw_loa_nhang = 0;
+    int cspeed_max_pass = 0;
+    int max_s = 0;
+    bool eShd = false;
+    vector<char> vect_w;
+
+    //
+
     loader.open("owners.txt",ios::in);
     if(loader.is_open()) //we check that the file is open. In our case not open means first use of the program
     {
@@ -34,6 +65,78 @@ void Platform::initialize() //Load values from the files into the programs
     }
 
     else cout << "<<Error loading the data, please close the program and reopen it again>>" << endl;
+
+    loader.open("ships.txt", ios::in);
+
+    if (loader.is_open())
+    {
+        while(!loader.eof())
+        {
+            getline(loader, el_1, '\n');
+            getline(loader, el_2, '\n');
+            getline(loader, el_3, '\n');
+            getline(loader, el_4, '\n');
+            getline(loader, el_5, '\n');
+            getline(loader, el_6, '\n');
+            getline(loader, el_7, '\n');
+            getline(loader, el_8, '\n');
+            getline(loader, el_9, '\n');
+
+            //we obtain the 9 lines- now we adress them
+
+            crew_m = stoi(el_3); //convert string to int
+            pri = stof(el_4); //string to float
+
+            a_sale = this->strToBool(el_5);
+
+            // we have obtained base parameters
+
+            if(el_6 == "-") //destroyer type
+            {
+                nw_loa_nhang = stoi(el_7);
+
+                for(int i = 0; i < nw_loa_nhang; i++)
+                {
+                    vect_w.push_back(el_8[i]);
+                }
+                //element 9 is negligible
+                vect_space.push_back(new Destroyer(crew_m, pri, el_1, el_2,vect_w)); //Destroyer constructor
+                vect_w.clear(); // clear the vector for the future
+            }
+            else if(el_6 == "@") // Space Station
+            {
+                nw_loa_nhang = stoi(el_7);
+                cspeed_max_pass = stoi(el_8);
+                eShd = this->strToBool(el_9);
+
+                vect_space.push_back(new SpaceStation(nw_loa_nhang, cspeed_max_pass, eShd, crew_m, pri, el_1, el_2));
+            }
+            else if(el_6 == "#") //Space Carrier - do the same but call other constructor
+            {
+                nw_loa_nhang = stoi(el_7);
+                cspeed_max_pass = stoi(el_8);
+                eShd = this->strToBool(el_9);
+
+                vect_space.push_back(new SpaceCarrier(nw_loa_nhang, cspeed_max_pass, eShd, crew_m, pri, el_1, el_2));
+            }
+            else if(el_6 == "%")//is a fighter
+            {
+                nw_loa_nhang = stoi(el_7);
+
+                for(int i = 0; i < nw_loa_nhang; i++)
+                {
+                    vect_w.push_back(el_8[i]);
+                }
+
+                max_s = stoi(el_9);
+                vect_space.push_back(new Fighter(max_s,crew_m, pri, el_1, el_2, vect_w));
+                vect_w.clear();
+            }
+        }
+        //here we are out of the while
+        loader.close();
+        //cout <<  "\033[2J\033[1;1H";
+    }
 }
 
 void Platform::displayMenu()
@@ -290,6 +393,9 @@ void Platform::destroyerCreator(int &crew, float &price, string &registration, s
     vector<char> weapons;
     char type_weapon = '\0';
     //
+    if (crew != 1)
+        cout << "Crew must be one -- automatically changed" << endl;
+    crew = 1; //by specification
     cout << "how many weapons does it have?: ";
     cin >> num_weapons; //we ask for the lenght
     cout << endl << "//////////////////////////////" ;
@@ -316,6 +422,9 @@ void Platform::fighterCreator(int &crew, float &price, string &registration, str
     vector<char> weapons;
     char type_weapon = '\0';
     //
+    if (crew != 1)
+        cout << "Crew must be one -- automatically changed" << endl;
+    crew = 1; // by requirements must be one, so we force it
     cout << "What is its maximum speed? (in light-years): ";
     cin >> speedTop;
     cout << "how many weapons does it have?: ";
@@ -400,7 +509,7 @@ void Platform::spaceCraftCreator()
         }
         while(valid != true);
 
-        cout << "Enter the maximum crew number: ";
+        cout << "Enter the maximum crew number--(remember that figthers/destroyers are unipersonal): ";
         cin >> c;
         cout << "Enter the selling price in Units: ";
         cin >> p;
@@ -580,6 +689,7 @@ void Platform::performer() //Deals with the menu and call the proper methods of 
             cout << "Introduce the registration number: ";
             cin >> regTarget;
             this->spaceCraftSearch(regTarget, saler, found_for_sale);
+
             if(found_for_sale == true)
             {
                 (*saler)->transaction(create_sale); //we pass a bool that will told us if the id has been changed

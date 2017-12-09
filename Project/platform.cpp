@@ -67,7 +67,7 @@ void Platform::loadCrafts()
            {
                w.push_back(wea[i]);
            }
-           vect_space.push_back(new Destroyer(atoi(crew_max.c_str()),strof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale),w));
+           vect_space.push_back(new Destroyer(atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale),w));
            w.clear();
            break;
         }
@@ -81,7 +81,7 @@ void Platform::loadCrafts()
             {
                 w.push_back(wea[i]);
             }
-            vect_space.push_back(new Fighter(atoi(es.c_str()),atoi(crew_max.c_str()),strof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale),w));
+            vect_space.push_back(new Fighter(atoi(es.c_str()),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale),w));
             w.clear();
             break;
         }
@@ -91,7 +91,7 @@ void Platform::loadCrafts()
             getline(load_crafts, mp, ',');
             getline(load_crafts, es, '\n');
 
-            vect_space.push_back(new SpaceStation(atoi(nh.c_str()),atoi(mp.c_str()),this->strToBool(es),atoi(crew_max.c_str()),strof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale)));
+            vect_space.push_back(new SpaceStation(atoi(nh.c_str()),atoi(mp.c_str()),this->strToBool(es),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale)));
             break;
         }
         case '#':
@@ -100,7 +100,7 @@ void Platform::loadCrafts()
             getline(load_crafts, cs, ',');
             getline(load_crafts, es, '\n');
 
-            vect_space.push_back(new SpaceCarrier(atoi(ml.c_str()),atoi(cs.c_str()),this->strToBool(es),atoi(crew_max.c_str()),strof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale)));
+            vect_space.push_back(new SpaceCarrier(atoi(ml.c_str()),atoi(cs.c_str()),this->strToBool(es),atoi(crew_max.c_str()),stof(price),atoi(prop.c_str()),reg,id,this->strToBool(a_sale)));
             break;
         }
 

@@ -1,7 +1,7 @@
 #include "destroyer.h"
 #include "spacecraft.h"
 
-Destroyer::Destroyer(int cm, float p, /*PropTy pro,*/string rn, string o,vector<char> w): SpaceCraft(cm,p /*,pro*/,rn,o)
+Destroyer::Destroyer(int cm, float p, int pro, string rn, string o,bool b,vector<char> w): SpaceCraft(cm,p,pro,rn,o,b)
 {
     destroyer_weapons = w;
     num_weapons = w.size();
@@ -31,6 +31,30 @@ void Destroyer::show()
     cout << " Owner: " << owner << endl;
     cout << " RegNum: " << regNum << endl;
     cout << " Price: " << price << endl;
+    cout << " Propulsion type: ";
+
+    switch (propulsion) //we use it like a map
+    {
+    case 1:
+        cout << "Warp drive";
+        break;
+    case 2:
+        cout << "Trace compressor";
+        break;
+    case 3:
+        cout << "FTL engine";
+        break;
+    case 4:
+        cout << "Solar sails";
+        break;
+    case 5:
+        cout << "Ion engine";
+        break;
+    default:
+        cout << "Typo";
+        break;
+    }
+    cout << endl;
     cout << " Max Crew: " << crewMax << endl;
     cout << " Plasma Cannons: " << ty_1 << endl;
     cout << " Thermonuclear missiles: " << ty_2 << endl;
@@ -54,6 +78,7 @@ void Destroyer::editSpacecraft()
     vector<char>::iterator searcher;
     //
     this->editBaseParameters();//edit the parameters inhereted
+    crewMax = 1; //by security
 
     cout << "#### WEAPON EDITOR ####" << endl << " Do you want to delete any weapon?(y/N) :";
     cin >> option;

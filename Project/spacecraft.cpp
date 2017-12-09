@@ -1,13 +1,13 @@
 #include "spacecraft.h"
 
-SpaceCraft::SpaceCraft(int cm, float pri/*, PropTy prop*/, string rn, string o)
+SpaceCraft::SpaceCraft(int cm, float pri, int prop, string rn, string o, bool b)
 {
  crewMax = cm;
  price = pri;
- //propType = prop;
+ propulsion = prop;
  regNum = rn;
  owner = o;
- av_sale = true; //if you register it of course its availible by default
+ av_sale = b;
 }
 
 void SpaceCraft::show()
@@ -75,6 +75,7 @@ void SpaceCraft::editBaseParameters()
 {
     float new_price = 0;
     unsigned int new_crew = 0;
+    int new_propulsion = 0;
     //
     cout << " New parameters of this Spacecraft:" << endl << "(Write 0 in the ones that you don't want to change)" << endl;
 
@@ -83,10 +84,21 @@ void SpaceCraft::editBaseParameters()
     if(new_price != 0)
         price = new_price;
 
-    cout << "Máximum crew : ";
+    cout << "Máximum crew -(press 0 if this is a Fighter/Destroyer): ";
     cin >> new_crew;
     if(new_crew != 0)
         crewMax = new_crew;
+
+    cout << "////////////////////////" << endl;
+    cout << " 1. Warp Drive. " << endl << " 2. Trace compressor" << endl << " 3. FTL engine." << endl;
+    cout << " 4. Solar sails." << endl << " 5. Ion engine." << endl;
+    cout << "////////////////////////" << endl;
+    cout << "Propulsion type: ";
+    cin >> new_propulsion;
+
+    if(new_propulsion != 0)
+        propulsion = new_propulsion;
+
 
 }
 void SpaceCraft::editSpacecraft()

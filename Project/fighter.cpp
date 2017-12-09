@@ -1,7 +1,7 @@
 #include "fighter.h"
 #include "spacecraft.h"
 
-Fighter::Fighter(int ms,int cn, float p, /*PropTy pro,*/ string rn, string o, vector<char> w): SpaceCraft(cn, p, /*pro,*/ rn, o)
+Fighter::Fighter(int ms, int cn, float p, int pro,string rn, string o, bool b, vector<char> w): SpaceCraft(cn,p,pro,rn,o,b)
 {
     maxSpeed = ms;
     fighter_weapons = w;
@@ -25,6 +25,30 @@ void Fighter::show()
     cout << " Owner: " << owner << endl;
     cout << " RegNum: " << regNum << endl;
     cout << " Price: " << price << endl;
+    cout << " Propulsion type: ";
+
+    switch (propulsion) //we use it like a map
+    {
+    case 1:
+        cout << "Warp drive";
+        break;
+    case 2:
+        cout << "Trace compressor";
+        break;
+    case 3:
+        cout << "FTL engine";
+        break;
+    case 4:
+        cout << "Solar sails";
+        break;
+    case 5:
+        cout << "Ion engine";
+        break;
+    default:
+        cout << "Typo";
+        break;
+    }
+    cout << endl;
     cout << " Max Crew: " << crewMax << endl;
     cout << " Max Speed: " << maxSpeed << endl;
     cout << " Plasma Cannons: " << ty_1 << endl;
@@ -48,6 +72,7 @@ void Fighter::editSpacecraft()
     vector<char>::iterator searcher;
     //
     this->editBaseParameters();
+    crewMax = 1; //by security
 
     cout << "Máximum speed : ";
     cin >> new_maxspeed;

@@ -16,7 +16,7 @@ class Destroyer : public SpaceCraft
 
 public:
 
-    Destroyer(int cm, float p/*, PropTy pro*/, string rn, string o, vector<char> w);
+    Destroyer(int cm, float p, int pro, string rn, string o, bool b, vector<char> w);
     void show();
     void showTypes();
     void editSpacecraft();

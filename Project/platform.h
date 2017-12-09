@@ -33,7 +33,7 @@ public:
     bool strToBool(const string str);
     float stof(const string str);
     int stoi(const string str);
-    void loadCrafts(ifstream &sec_loader);
+    //void loadCrafts(ifstream &sec_loader);
     void initialize();
     void displayMenu();
     bool checkNie(const string &n)const;
@@ -47,10 +47,11 @@ public:
                          //Maybe its not needed when exceptions are explained
     void editorOwn();
     void deleteOwn();
-    void destroyerCreator(int &crew, float &price, string &registration, string &owner); //This and the following 4 are used in SpacaCraftCreator()
-    void fighterCreator(int &crew, float &price, string &registration, string &owner);
-    void scCreator(int &crew, float &price, string &registration, string &owner);
-    void ssCreator(int &crew, float &price, string &registration, string &owner);
+    void showPropTypes();
+    void destroyerCreator(int &crew, float &price, int &propu, string &registration, string &owner); //This and the following 4 are used in SpacaCraftCreator()
+    void fighterCreator(int &crew, float &price, int &propu, string &registration, string &owner);
+    void scCreator(int &crew, float &price, int &propu, string &registration, string &owner);
+    void ssCreator(int &crew, float &price, int &propu, string &registration, string &owner);
     void spaceCraftCreator();
     void showOwners();
     void showSpacesAvailible();

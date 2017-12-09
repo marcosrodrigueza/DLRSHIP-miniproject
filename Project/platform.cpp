@@ -28,7 +28,7 @@ int Platform::stoi(const string str)
     return result;
 }
 
-void Platform::loadCrafts(ifstream &sec_loader)
+/*void Platform::loadCrafts(ifstream &sec_loader)
 {
     string el_1 = "non-sense"; //First row - RegNum
     string el_2 = "non-sense"; //Second row and so - owner
@@ -109,7 +109,7 @@ void Platform::loadCrafts(ifstream &sec_loader)
         vect_w.clear();
     }
 
-}
+}*/
 
 void Platform::initialize() //Load values from the files into the programs
 {  
@@ -156,7 +156,7 @@ void Platform::initialize() //Load values from the files into the programs
         cout << "<<Error loading the data, please close the program and reopen it again>>" << endl;
     }
 
-    loader.open("ships.txt", ios::in);
+    /*loader.open("ships.txt", ios::in);
 
     if (loader.is_open())
     {
@@ -168,7 +168,7 @@ void Platform::initialize() //Load values from the files into the programs
         loader.close();
     }
     else
-        cout << "<<Error loading the data, please close the program and reopen it again>>" << endl;
+        cout << "<<Error loading the data, please close the program and reopen it again>>" << endl;*/
 //we start with sales
 
     loader.open("sales.txt", ios::in);
@@ -213,7 +213,8 @@ void Platform::displayMenu()
     cout << "   6. Register a Sale." << endl;
     cout << "   7. Show owners registered. " <<endl;
     cout << "   8. Show Space Ships for sale" << endl;
-    cout << "   9. Show the record of sales" << endl << endl;
+    cout << "   9. Show the record of sales"  << endl;
+    cout << "   <<< Press 'x' to save and exit >>" << endl << endl;
     cout << "   Option : " ;
 }
 
@@ -453,7 +454,7 @@ void Platform::deleteOwn()
     }
 }
 
-void Platform::destroyerCreator(int &crew, float &price, string &registration, string &owner) //used in SpacaCraftCreator()
+void Platform::destroyerCreator(int &crew, float &price,int &propu, string &registration, string &owner) //used in SpacaCraftCreator()
 {
     unsigned int num_weapons = 0;
     vector<char> weapons;
@@ -476,12 +477,20 @@ void Platform::destroyerCreator(int &crew, float &price, string &registration, s
         weapons.push_back(type_weapon);
     }
 
-    vect_space.push_back(new  Destroyer(crew,price,registration,owner,weapons));
+    vect_space.push_back(new  Destroyer(crew,price,propu,registration,owner,true,weapons)); //true means av by default
     cout << "---Destroyer Created---" << endl;
 
 }
 
-void Platform::fighterCreator(int &crew, float &price, string &registration, string &owner)
+void Platform::showPropTypes()
+{
+    cout << "////////////////////////" << endl;
+    cout << " 1. Warp Drive. " << endl << " 2. Trace compressor" << endl << " 3. FTL engine." << endl;
+    cout << " 4. Solar sails." << endl << " 5. Ion engine." << endl;
+    cout << "////////////////////////" << endl;
+}
+
+void Platform::fighterCreator(int &crew, float &price,int &propu, string &registration, string &owner)
 {
     unsigned int num_weapons = 0;
     unsigned int speedTop = 0;
@@ -507,12 +516,12 @@ void Platform::fighterCreator(int &crew, float &price, string &registration, str
         weapons.push_back(type_weapon); //loads the vector
     }
 
-    vect_space.push_back(new Fighter(speedTop,crew,price,registration,owner,weapons));
+    vect_space.push_back(new Fighter(speedTop,crew,price,propu,registration,owner,true,weapons));
     cout << "---Fighter Created---" << endl;
 
 }
 
-void Platform::scCreator(int &crew, float &price, string &registration, string &owner)
+void Platform::scCreator(int &crew, float &price,int &propu, string &registration, string &owner)
 {
     unsigned int maxLoad = 0;
     unsigned int speedCruise = 0;
@@ -525,11 +534,11 @@ void Platform::scCreator(int &crew, float &price, string &registration, string &
     cout << "What is its cruise speed?(in light-years): ";
     cin >> speedCruise;
 
-    vect_space.push_back(new SpaceCarrier(maxLoad,speedCruise, eShield,crew,price,registration,owner));
+    vect_space.push_back(new SpaceCarrier(maxLoad,speedCruise, eShield,crew,price,propu,registration,owner, true));
     cout << "---Carrier Created---" << endl;
 }
 
-void Platform::ssCreator(int &crew, float &price, string &registration, string &owner)
+void Platform::ssCreator(int &crew, float &price, int &propu, string &registration, string &owner)
 {
     unsigned int hangars = 0;
     unsigned int eShield = false;
@@ -542,7 +551,7 @@ void Platform::ssCreator(int &crew, float &price, string &registration, string &
     cout << "Maximum of passangers: ";
     cin >> passengers;
 
-    vect_space.push_back(new SpaceStation(hangars,passengers,eShield,crew,price,registration,owner));
+    vect_space.push_back(new SpaceStation(hangars,passengers,eShield,crew,price,propu,registration,owner,true));
     cout << "---Carrier Created---" << endl;
 }
 
@@ -556,6 +565,7 @@ void Platform::spaceCraftCreator()
     bool found = false;
     int c = 0;
     float p = 0.0;
+    int prop_type = 0;
     //
     cout << "Introduce its Owner id (nif/nie): ";
     cin >> own;
@@ -575,10 +585,15 @@ void Platform::spaceCraftCreator()
         }
         while(valid != true);
 
-        cout << "Enter the maximum crew number--(remember that figthers/destroyers are unipersonal): ";
+        cout << "Enter the maximum crew-(remember figthers/destroyers are unipersonal): ";
         cin >> c;
         cout << "Enter the selling price in Units: ";
         cin >> p;
+        cout << "Enter the propulsion type" << endl;
+        this->showPropTypes();
+        cout << "Type: ";
+        cin >> prop_type;
+
         cout <<  "\033[2J\033[1;1H"; //clear screen
 
         do
@@ -599,19 +614,19 @@ void Platform::spaceCraftCreator()
 
             if(type == 1 || type == 4) //means Fighter selected
             {
-                this->fighterCreator(c,p,reg,own);
+                this->fighterCreator(c,p,prop_type,reg,own);
             }
             else if(type == 2 || type == 5) //means Space Carrier
             {
-                this->scCreator(c,p,reg,own);
+                this->scCreator(c,p,prop_type,reg,own);
             }
             else if(type == 3) //means Space Station
             {
-                this->ssCreator(c,p,reg,own);
+                this->ssCreator(c,p,prop_type,reg,own);
             }
             else if(type == 6) //means destroyer
             {
-                this->destroyerCreator(c,p,reg,own);
+                this->destroyerCreator(c,p,prop_type,reg,own);
             }
             else
             {

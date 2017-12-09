@@ -12,7 +12,7 @@ protected:
 
     int crewMax;
     float price;
-    //PropTy prop;       In comment to be able to compie before implementing
+    int propulsion;
     string regNum;
     string owner;
     bool av_sale; // to determine its state. true = available for sale: false = non available.
@@ -21,7 +21,7 @@ protected:
 
 public:
 
-    SpaceCraft(int cm, float pri/*, PropTy prop*/, string rn, string o);
+    SpaceCraft(int cm, float pri,int prop, string rn, string o, bool b);
     virtual void show();
     void transaction(bool &create_sale);
     bool checkSale(string check);

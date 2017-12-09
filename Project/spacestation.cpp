@@ -1,8 +1,8 @@
 #include "spacestation.h"
 #include "spacecraft.h"
 
-SpaceStation::SpaceStation(int nh,int mp, bool es, int cn, float p,/* PropTy pro,*/ string rn, string o)
-    : SpaceCraft(cn, p, /*pro,*/ rn, o)
+SpaceStation::SpaceStation(int nh,int mp, bool es, int cn, float p,int pro, string rn, string o, bool b)
+    : SpaceCraft(cn, p, pro, rn, o, b)
 {
     numHangar = nh;
     maxPassenger = mp;
@@ -15,6 +15,30 @@ void SpaceStation::show()
     cout << " Owner: " << owner << endl;
     cout << " RegNum: " << regNum << endl;
     cout << " Price: " << price << endl;
+    cout << " Propulsion type: ";
+
+    switch (propulsion) //we use it like a map
+    {
+    case 1:
+        cout << "Warp drive";
+        break;
+    case 2:
+        cout << "Trace compressor";
+        break;
+    case 3:
+        cout << "FTL engine";
+        break;
+    case 4:
+        cout << "Solar sails";
+        break;
+    case 5:
+        cout << "Ion engine";
+        break;
+    default:
+        cout << "Typo";
+        break;
+    }
+    cout << endl;
     cout << " Max Crew: " << crewMax << endl;
     cout << " Number of Hangars: " << numHangar << endl;
     cout << " Maximum Passengers: " << maxPassenger << endl;

@@ -1,8 +1,8 @@
 #include "spacecarrier.h"
 #include "spacecraft.h"
 
-SpaceCarrier::SpaceCarrier(int ml, int cs, bool es,int cn, float p,/* PropTy pro,*/ string rn, string o)
-    : SpaceCraft(cn, p, /*pro,*/ rn, o)
+SpaceCarrier::SpaceCarrier(int ml, int cs, bool es,int cn, float p, int pro, string rn, string o, bool b)
+    : SpaceCraft(cn, p, pro, rn, o, b)
 {
     maxLoad = ml;
     cSpeed = cs;
@@ -15,6 +15,30 @@ void SpaceCarrier::show()
     cout << " Owner: " << owner << endl;
     cout << " RegNum: " << regNum << endl;
     cout << " Price: " << price << endl;
+    cout << " Propulsion type: ";
+
+    switch (propulsion) //we use it like a map
+    {
+    case 1:
+        cout << "Warp drive";
+        break;
+    case 2:
+        cout << "Trace compressor";
+        break;
+    case 3:
+        cout << "FTL engine";
+        break;
+    case 4:
+        cout << "Solar sails";
+        break;
+    case 5:
+        cout << "Ion engine";
+        break;
+    default:
+        cout << "Typo";
+        break;
+    }
+    cout << endl;
     cout << " Max Crew: " << crewMax << endl;
     cout << " Max Load: " << maxLoad << endl;
     cout << " Cruise Speed: " << cSpeed << endl;

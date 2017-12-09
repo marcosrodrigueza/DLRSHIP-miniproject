@@ -13,7 +13,7 @@ class SpaceCarrier : public SpaceCraft
 
 public:
 
-    SpaceCarrier(int ml, int cs, bool es, int cn, float p,/* PropTy pro,*/ string rn, string o);//Constructor
+    SpaceCarrier(int ml, int cs, bool es, int cn, float p, int pro, string rn, string o, bool b);//Constructor
     void show();
    // string getReg();
     void editSpacecraft();

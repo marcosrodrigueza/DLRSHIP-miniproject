@@ -27,3 +27,10 @@ bool Sale::compareDate(const Date& date)
    return check;
 }
 
+void Sale::saveSale(ofstream &output)
+{
+
+    output << dateSale.day << '/' << dateSale.month << '/' << dateSale.year << endl;
+    output << id << endl;
+}
+

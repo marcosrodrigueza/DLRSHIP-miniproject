@@ -2,6 +2,7 @@
 #define SALE_H
 #include<iostream>
 #include <string>
+#include <fstream>
 #include "date.h"
 
 using namespace std;
@@ -17,6 +18,7 @@ public:
     void showSale();
     Date getDate();
     bool compareDate(const Date& date);
+    void saveSale(ofstream &output);
 };
 
 #endif // SALE_H

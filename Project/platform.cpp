@@ -16,13 +16,21 @@ bool Platform::strToBool(const string str) //if garbage input we give a zero (oc
 
     return result;
 }
+float Platform::stof(const string str)
+{
+    float result = 10.5;
+    return result;
+}
 
-void Platform::initialize() //Load values from the files into the programs
-{  
-    ifstream loader;
-    string ids = "non-sense";
-    //
-    /*string el_1 = "non-sense"; //First row - RegNum
+int Platform::stoi(const string str)
+{
+    int result = 100;
+    return result;
+}
+
+void Platform::loadCrafts(ifstream &sec_loader)
+{
+    string el_1 = "non-sense"; //First row - RegNum
     string el_2 = "non-sense"; //Second row and so - owner
     string el_3 = "non-sense"; // crew_máx
     string el_4 = "non-sense"; //price
@@ -38,7 +46,84 @@ void Platform::initialize() //Load values from the files into the programs
     int cspeed_max_pass = 0;
     int max_s = 0;
     bool eShd = false;
-    vector<char> vect_w;*/
+    vector<char> vect_w;
+    //
+    getline(sec_loader, el_1, '\n');
+    getline(sec_loader, el_2, '\n');
+    getline(sec_loader, el_3, '\n');
+    getline(sec_loader, el_4, '\n');
+    getline(sec_loader, el_5, '\n');
+    getline(sec_loader, el_6, '\n');
+    getline(sec_loader, el_7, '\n');
+    getline(sec_loader, el_8, '\n');
+    getline(sec_loader, el_9, '\n');
+
+    //we obtain the 9 lines- now we adress them
+
+    crew_m = this->stoi(el_3); //convert string to int
+    pri = this->stof(el_4); //string to float
+
+    a_sale = this->strToBool(el_5);
+
+    // we have obtained base parameters
+
+    if(el_6 == "-") //destroyer type
+    {
+        nw_loa_nhang = stoi(el_7);
+
+        for(int i = 0; i < nw_loa_nhang; i++)
+        {
+            vect_w.push_back(el_8[i]);
+        }
+        //element 9 is negligible
+        vect_space.push_back(new Destroyer(crew_m, pri, el_1, el_2,vect_w)); //Destroyer constructor
+        vect_w.clear(); // clear the vector for the future
+    }
+    else if(el_6 == "@") // Space Station
+    {
+        nw_loa_nhang = stoi(el_7);
+        cspeed_max_pass = stoi(el_8);
+        eShd = this->strToBool(el_9);
+
+        vect_space.push_back(new SpaceStation(nw_loa_nhang, cspeed_max_pass, eShd, crew_m, pri, el_1, el_2));
+    }
+    else if(el_6 == "#") //Space Carrier - do the same but call other constructor
+    {
+        nw_loa_nhang = stoi(el_7);
+        cspeed_max_pass = stoi(el_8);
+        eShd = this->strToBool(el_9);
+
+        vect_space.push_back(new SpaceCarrier(nw_loa_nhang, cspeed_max_pass, eShd, crew_m, pri, el_1, el_2));
+    }
+    else if(el_6 == "%")//is a fighter
+    {
+        nw_loa_nhang = stoi(el_7);
+
+        for(int i = 0; i < nw_loa_nhang; i++)
+        {
+            vect_w.push_back(el_8[i]);
+        }
+
+        max_s = stoi(el_9);
+        vect_space.push_back(new Fighter(max_s,crew_m, pri, el_1, el_2, vect_w));
+        vect_w.clear();
+    }
+
+}
+
+void Platform::initialize() //Load values from the files into the programs
+{  
+    ifstream loader;
+    ifstream sec_loader;
+    string ids = "non-sense";
+    //
+    Date date_reg;
+    string d = "non-sense";
+    string m = "non-sense";
+    string y = "non-sense";
+    int day = 0;
+    int month = 0;
+    int year = 0;
 
     //
 
@@ -64,79 +149,51 @@ void Platform::initialize() //Load values from the files into the programs
          cout <<  "\033[2J\033[1;1H";
     }
 
-    else cout << "<<Error loading the data, please close the program and reopen it again>>" << endl;
+    else
+    {
+        cout << "<<Error loading the data, please close the program and reopen it again>>" << endl;
+    }
 
-    /*loader.open("ships.txt", ios::in);
+    loader.open("ships.txt", ios::in);
 
     if (loader.is_open())
     {
         while(!loader.eof())
         {
-            getline(loader, el_1, '\n');
-            getline(loader, el_2, '\n');
-            getline(loader, el_3, '\n');
-            getline(loader, el_4, '\n');
-            getline(loader, el_5, '\n');
-            getline(loader, el_6, '\n');
-            getline(loader, el_7, '\n');
-            getline(loader, el_8, '\n');
-            getline(loader, el_9, '\n');
-
-            //we obtain the 9 lines- now we adress them
-
-            crew_m = stoi(el_3); //convert string to int
-            pri = stof(el_4); //string to float
-
-            a_sale = this->strToBool(el_5);
-
-            // we have obtained base parameters
-
-            if(el_6 == "-") //destroyer type
-            {
-                nw_loa_nhang = stoi(el_7);
-
-                for(int i = 0; i < nw_loa_nhang; i++)
-                {
-                    vect_w.push_back(el_8[i]);
-                }
-                //element 9 is negligible
-                vect_space.push_back(new Destroyer(crew_m, pri, el_1, el_2,vect_w)); //Destroyer constructor
-                vect_w.clear(); // clear the vector for the future
-            }
-            else if(el_6 == "@") // Space Station
-            {
-                nw_loa_nhang = stoi(el_7);
-                cspeed_max_pass = stoi(el_8);
-                eShd = this->strToBool(el_9);
-
-                vect_space.push_back(new SpaceStation(nw_loa_nhang, cspeed_max_pass, eShd, crew_m, pri, el_1, el_2));
-            }
-            else if(el_6 == "#") //Space Carrier - do the same but call other constructor
-            {
-                nw_loa_nhang = stoi(el_7);
-                cspeed_max_pass = stoi(el_8);
-                eShd = this->strToBool(el_9);
-
-                vect_space.push_back(new SpaceCarrier(nw_loa_nhang, cspeed_max_pass, eShd, crew_m, pri, el_1, el_2));
-            }
-            else if(el_6 == "%")//is a fighter
-            {
-                nw_loa_nhang = stoi(el_7);
-
-                for(int i = 0; i < nw_loa_nhang; i++)
-                {
-                    vect_w.push_back(el_8[i]);
-                }
-
-                max_s = stoi(el_9);
-                vect_space.push_back(new Fighter(max_s,crew_m, pri, el_1, el_2, vect_w));
-                vect_w.clear();
-            }
+            this->loadCrafts(loader);
         }
-        //here we are out of the while
+
         loader.close();
-        //cout <<  "\033[2J\033[1;1H";
-    }*/
+    }
+    else
+        cout << "<<Error loading the data, please close the program and reopen it again>>" << endl;
+//we start with sales
+
+    loader.open("sales.txt", ios::in);
+    if(loader.is_open())
+    {
+        while(!loader.eof())
+        {
+            getline(loader, d, '/');
+            getline(loader, m, '/');
+            getline(loader, y, '\n');
+            getline(loader, ids, '\n');
+
+            day = atoi(d.c_str());
+            month = atoi(m.c_str());
+            year = atoi(y.c_str());
+
+            date_reg.day = day;
+            date_reg.month = month;
+            date_reg.year = year;
+
+
+            vect_sale.push_back(Sale(date_reg, ids));
+        }
+        vect_sale.pop_back(); //we observe that ilogically it creates an extra object so we delete it
+
+        loader.close();
+    }
 }
 
 void Platform::displayMenu()
@@ -154,7 +211,7 @@ void Platform::displayMenu()
     cout << "   6. Register a Sale." << endl;
     cout << "   7. Show owners registered. " <<endl;
     cout << "   8. Show Space Ships for sale" << endl;
-    cout << "   9.Show the record of sales" << endl << endl;
+    cout << "   9. Show the record of sales" << endl << endl;
     cout << "   Option : " ;
 }
 
@@ -791,6 +848,18 @@ void Platform::saver()
         saver.close();
     }
     //Done with Spaceships
+
+    saver.open("sales.txt");
+
+    if(saver.is_open())
+    {
+        for(vector<Sale>::iterator i = vect_sale.begin(); i != vect_sale.end();i++)
+        {
+            i->saveSale(saver);
+        }
+
+        saver.close();
+    }
 }
 
 void Platform::deleter()

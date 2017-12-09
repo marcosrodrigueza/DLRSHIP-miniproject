@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <cstdlib>
 #include "date.h"
 #include "owners.h"
 #include "alien.h"
@@ -30,6 +31,9 @@ public:
 
     Platform(Date ad);
     bool strToBool(const string str);
+    float stof(const string str);
+    int stoi(const string str);
+    void loadCrafts(ifstream &sec_loader);
     void initialize();
     void displayMenu();
     bool checkNie(const string &n)const;
